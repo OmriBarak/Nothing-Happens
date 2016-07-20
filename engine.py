@@ -38,6 +38,12 @@ if not os.path.isfile(config['saveFile'] + '.zip'):
     print "[Done]"
 else: print "Save file exists. Continuing..."
 
+def loadGame():
+    pass
+
+def saveGame(playerState, roomStates, itemStates, npcStates):
+    pass
+
 def playerTurn(command):
     pass
 
