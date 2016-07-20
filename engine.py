@@ -20,12 +20,14 @@ if not os.path.isfile(config['saveFile'] + '.zip'):
 
     # Copy the over game's default states
     with zipfile.ZipFile(config['gameFile'] + '.zip') as gameFile:
+        with open('_SAVE/playerState.json', 'w') as roomStatesFile: roomStatesFile.write(gameFile.read(config['gameFile'] + '/playerState.json'))
         with open('_SAVE/roomStates.json', 'w') as roomStatesFile: roomStatesFile.write(gameFile.read(config['gameFile'] + '/roomStates.json'))
         with open('_SAVE/itemStates.json', 'w') as itemStatesFile: itemStatesFile.write(gameFile.read(config['gameFile'] + '/itemStates.json'))
         with open('_SAVE/npcStates.json', 'w') as npcStatesFile: npcStatesFile.write(gameFile.read(config['gameFile'] + '/npcStates.json'))
 
     # Create a zip archive and add our save data
     saveFile = zipfile.ZipFile(config['saveFile'] + '.zip', 'w')
+    saveFile.write('_SAVE/playerState.json')
     saveFile.write('_SAVE/roomStates.json')
     saveFile.write('_SAVE/itemStates.json')
     saveFile.write('_SAVE/npcStates.json')
