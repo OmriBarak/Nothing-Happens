@@ -45,14 +45,13 @@ def saveGame(playerState, roomStates, itemStates, npcStates):
     with open('_SAVE/npcStates.json', 'w') as statesFile: statesFile.write(npcStates)
 
     # Create a zip archive and add our save data
-    saveFile = zipfile.ZipFile(config['saveFile'] + '.zip', 'w')
-    saveFile.write('_SAVE/playerState.json')
-    saveFile.write('_SAVE/roomStates.json')
-    saveFile.write('_SAVE/itemStates.json')
-    saveFile.write('_SAVE/npcStates.json')
+    with zipfile.ZipFile(config['saveFile'] + '.zip', 'w') as saveFile:
+        saveFile.write('_SAVE/playerState.json')
+        saveFile.write('_SAVE/roomStates.json')
+        saveFile.write('_SAVE/itemStates.json')
+        saveFile.write('_SAVE/npcStates.json')
 
-    # Close the zip file and delete the temporary save folder
-    saveFile.close()
+    # Delete the temporary save folder
     shutil.rmtree('_SAVE')
     print "Saved."
 
