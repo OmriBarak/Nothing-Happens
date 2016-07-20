@@ -26,7 +26,12 @@ if not os.path.isfile(config['saveFile'] + '.zip'):
 else: print "Save file found."
 
 def loadGame():
-    pass
+    with zipfile.ZipFile(config['saveFile'] + '.zip') as saveFile:
+        playerState = saveFile.read('_SAVE/playerState.json')
+        roomStates = saveFile.read('_SAVE/roomStates.json')
+        itemStates = saveFile.read('_SAVE/itemStates.json')
+        npcStates = saveFile.read('_SAVE/npcStates.json')
+    return playerState, roomStates, itemStates, npcStates
 
 def saveGame(playerState, roomStates, itemStates, npcStates):
     print "Saving..."
