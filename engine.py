@@ -34,7 +34,7 @@ while True:
     roomDescription = room.make_room_description(playerState['location'], rooms, roomStates, items, npcs, npcStates) # todo: write that function
 
     command = ' '.split(raw_input(":: "))
-    player.do(command, rooms, playerState)
+    print player.do(command, rooms, playerState, roomStates, items, npcs, npcStates)
     engine_turn()
 
     # todo: don't save every turn, allow "save" command to prompt save

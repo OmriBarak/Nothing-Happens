@@ -17,14 +17,14 @@ directionDict = {
     'u': ["up", "u"], 'd': ["down", "d"], 'i': ["in"], 'o': ["out", "o"]
 }
 
-def do(command, rooms, playerState):
+def do(command, rooms, playerState, roomStates, items, npcs, npcStates):
     global command, rooms, playerState
     validCommands = determine_valid_commands()
     intent = determine_command_intent()
 
     if command[0] not in validCommands: print "[WARN] Invalid command detected!"
     if intent = "MOVE": result = do_move()
-    elif intent = "INFO": result = do_info()
+    elif intent = "INFO": result = do_info(roomStates, items, npcs, npcStates)
     elif intent = "INTERACT": result = do_interact()
 
     return result
@@ -78,8 +78,24 @@ def do_move():
                     playerState['location'] = connection['room']
                     return "Moved player to " + playerState['location']
 
-def do_info():
-    pass
+def do_info(roomStates, items, npcs, npcStates):
+    if command[0] in viewCommands:
+        inventoryItems = []
+        for itemID in playerState['inventory']:
+            for item in items:
+                if item['itemID'] == itemID:
+                    inventoryItems.append((item['name'] + item['synonyms'], itemID))
+                    break
+
+        if len(command) = 1 or command[1] in room.get_room_name(playerState['location'], rooms): return room.make_room_description(playerState['location'], rooms, roomStates, items, npcs, npcStates)
+        else:
+            for invItem in inventoryItems:
+                if command[1] in invItem[0]:
+                    for item in items:
+                        if item['itemID'] == invItem[1]: return item['description']
+    
+    elif command[0] in invCommands:
+        # todo: list items player has
 
 def do_interact():
     pass
