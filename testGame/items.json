@@ -19,8 +19,6 @@
         "states": [
             {
                 "name": "isFilled",
-                "currentValue": "00",
-
                 "options": [
                     {
                         "value": "00",
@@ -34,8 +32,6 @@
             },
             {
                 "name": "drinkType",
-                "currentValue": "10",
-
                 "options": [
                     {
                         "value": "10",
@@ -52,6 +48,7 @@
                 ]
             }
         ],
+
         "actions": [
             {
                 "command": "drink, chug, swallow, sip, taste",

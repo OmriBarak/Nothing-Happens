@@ -3,19 +3,16 @@
         "roomID":       "000",
         "title":        "Kitchen",
         "description":  "It's a kitchen.",
-        "items": [
-            "001", "002", "003", "004"
-        ],
 
         "connections":
         [
             {
-                "direction": "n",
-                "room": "001"
+                "direction":    "n",
+                "room":         "001"
             },
             {
-                "direction": "nw",
-                "room": "002"
+                "direction":    "nw",
+                "room":         "002"
             }
         ]
     },
@@ -23,17 +20,16 @@
         "roomID":       "001",
         "title":        "Living Room",
         "description":  "It's a living room.",
-        "items": [],
 
         "connections":
         [
             {
-                "direction": "s",
-                "room": "000"
+                "direction":    "s",
+                "room":         "000"
             },
             {
-                "direction": "sw",
-                "room": "002"
+                "direction":    "sw",
+                "room":         "002"
             }
         ]
     },
@@ -41,17 +37,16 @@
         "roomID":       "002",
         "title":        "Bedroom",
         "description":  "It's a bedroom.",
-        "items": [],
 
         "connections":
         [
             {
-                "direction": "sw",
-                "room": "000"
+                "direction":    "sw",
+                "room":         "000"
             },
             {
-                "direction": "nw",
-                "room": "001"
+                "direction":    "nw",
+                "room":         "001"
             }
         ]
     }

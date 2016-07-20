@@ -6,9 +6,6 @@
         "patrol": "000, 002, 001",
         "speed": "2",
 
-        "affiliation": "friendly",
-        "inventory": [
-            "000"
-        ]
+        "affiliation": "friendly"
     }
 ]
