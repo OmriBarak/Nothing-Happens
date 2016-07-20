@@ -3,6 +3,7 @@ import shutil
 import zipfile
 import json
 
+import room
 from config import config
 
 def load_game():
@@ -93,6 +94,7 @@ def determine_valid_commands():
     return validCommands
 
 def player_turn(command):
+    validCommands = determine_valid_commands()
     command = ' '.split(command.lower())
 
 def engine_turn():
@@ -100,6 +102,11 @@ def engine_turn():
 
 while True:
     # Main game loop
+    roomDescription = room.make_room_description() # todo: write that function
+
     command = raw_input(":: ")
     player_turn(command)
     engine_turn()
+
+    # todo: don't save every turn, allow "save" command to prompt save
+    save_game(playerState, roomStates, itemStates, npcStates)
