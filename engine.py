@@ -47,9 +47,9 @@ def determine_valid_commands():
         'o': ["out", "o"]
     }
     # Find details about the room we're in, see what directions it connects to other rooms in, and append them to the valid command list
-    for room in rooms:
-        if room['roomID'] == playerState['location']:
-            for connection in room['connections']: validCommands.extend(movementCommands[connection['direction']])
+    for direction in room.get_valid_directions(playerState['location'], rooms):
+        if direction[0] in movementCommands.keys():
+            validCommands.extend(movementCommands[direction[0]])
 
     # Find valid special commands enabled by items
     itemCommands = []
@@ -58,6 +58,7 @@ def determine_valid_commands():
             if gameItem['itemID'] == itemID:
                 for action in gameItem['actions']: validCommands.append(' '.split(action['command']))
 
+    print "[DEBUG] Valid commands: " + str(validCommands)
     return validCommands
 
 def player_turn(command):
