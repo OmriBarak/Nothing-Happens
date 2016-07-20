@@ -51,7 +51,7 @@
 
         "actions": [
             {
-                "command": "drink, chug, swallow, sip, taste",
+                "command": "drink chug swallow sip taste",
                 "requiredValues":
                 {
                     "isFilled": "01"
