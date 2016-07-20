@@ -1,0 +1,132 @@
+[
+    {
+        "itemID":       "000",
+        "name":         "bob's pen",
+        "synonyms":     "pen",
+        "description":  "It's Bob's pen.",
+        "weight": "0.1",
+
+        "states": [],
+        "actions": []
+    },
+    {
+        "itemID":       "001",
+        "name":         "coffee cup",
+        "synonyms":     "cup, mug, coffee mug",
+        "description":  "It's a white coffee cup.",
+        "weight": "0.2",
+
+        "states": [
+            {
+                "name": "isFilled",
+                "currentValue": "00",
+
+                "options": [
+                    {
+                        "value": "00",
+                        "description": "It's empty."
+                    },
+                    {
+                        "value": "01",
+                        "description": "It's full of {drinkType}"
+                    }
+                ]
+            },
+            {
+                "name": "drinkType",
+                "currentValue": "10",
+
+                "options": [
+                    {
+                        "value": "10",
+                        "description": "ice water. It's cold."
+                    },
+                    {
+                        "value": "11",
+                        "description": "coffee. It's hot!"
+                    },
+                    {
+                        "value": "12",
+                        "description": "orange juice."
+                    }
+                ]
+            }
+        ],
+        "actions": [
+            {
+                "command": "drink, chug, swallow, sip, taste",
+                "requiredValues":
+                {
+                    "isFilled": "01"
+                },
+
+                "setValues": [
+                    {
+                        "parameter": "",
+                        "isFilled": "00"
+                    }
+                ],
+
+                "successResponse": "You drink the {drinkType}.",
+                "failureResponse": "The coffee cup is empty!"
+            },
+            {
+                "command": "fill",
+                "requiredValues":
+                {
+                    "requiredPreposition": "with",
+                    "requiresParameter": "True",
+                    "isFilled": "00"
+                },
+
+                "setValues": [
+                    {
+                        "parameter": "002",
+                        "drinkType": "10"
+                    },
+                    {
+                        "parameter": "003",
+                        "drinkType": "11"
+                    },
+                    {
+                        "parameter": "004",
+                        "drinkType": "12"
+                    }
+                ],
+
+                "successResponse": "You fill the mug with {parameter}.",
+                "failureResponse": "You can't fill the mug with that!"
+            }
+        ]
+    },
+    {
+        "itemID":       "002",
+        "name":         "pitcher of ice water",
+        "synonyms":     "ice water pitcher, ice water, pitcher of water, water pitcher, water",
+        "description":  "It's a clear pitcher of ice water. It's too big to drink from directly.",
+        "weight": "1",
+
+        "states": [],
+        "actions": []
+    },
+    {
+        "itemID":       "003",
+        "name":         "pot of coffee",
+        "synonyms":     "carafe of coffee, carafe, coffee pot, pot, coffee",
+        "description":  "It's a steaming hot pot of coffee. It's too big to drink from directly.",
+        "weight": "1",
+
+        "states": [],
+        "actions": []
+    },
+    {
+        "itemID":       "004",
+        "name":         "carton of orange juice",
+        "synonyms":     "orange juice carton, juice carton, carton, orange juice, juice",
+        "description":  "It's a carton of sweet orange juice. It's too big to drink from directly.",
+        "weight": "1",
+
+        "states": [],
+        "actions": []
+    }
+]
