@@ -35,3 +35,15 @@ if not os.path.isfile(config['saveFile'] + '.zip'):
     shutil.rmtree('_SAVE')
     print "[Done]"
 else: print "Save file exists. Continuing..."
+
+def playerTurn(command):
+    pass
+
+def engineTurn():
+    pass
+
+while True:
+    # Main game loop
+    command = raw_input(":: ")
+    playerTurn(command)
+    engineTurn()
