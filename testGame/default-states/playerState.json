@@ -1,12 +1,10 @@
-[
-    {
-        "location": "000",
+{
+    "location": "000",
 
-        "health": "100",
+    "health": "100",
 
-        "buffs": [],
-        "debuffs": [],
+    "buffs": [],
+    "debuffs": [],
 
-        "inventory": []
-    }
-]
+    "inventory": []
+}
