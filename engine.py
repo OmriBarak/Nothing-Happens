@@ -38,9 +38,9 @@ def save_game(playerState, roomStates, itemStates, npcStates):
 # Prepare game data and save file
 print "Loading game data..."
 with zipfile.ZipFile(config['gameFile'] + '.zip') as gameFile:
-    rooms = json.loads(gameFile.read(config['gameFile'] + '/rooms.json'))
-    items = json.loads(gameFile.read(config['gameFile'] + '/items.json'))
-    npcs = json.loads(gameFile.read(config['gameFile'] + '/npcs.json'))
+    gameRooms = json.loads(gameFile.read(config['gameFile'] + '/rooms.json'))
+    gameItems = json.loads(gameFile.read(config['gameFile'] + '/items.json'))
+    gameNPCs = json.loads(gameFile.read(config['gameFile'] + '/npcs.json'))
 
 print "Checking for save file..."
 if not os.path.isfile(config['saveFile'] + '.zip'):
@@ -58,28 +58,39 @@ else: print "Save file found."
 playerState, roomStates, itemStates, npcStates = load_game()
 
 def determine_valid_commands():
-    # Movement
-    goCommands = ["go", "move", "walk"]
-
-    nCommands = ["north", "n"]
-    sCommands = ["south", "s"]
-    eCommands = ["east", "e"]
-    wCommands = ["west", "w"]
-
-    neCommands = ["northeast", "ne"]
-    nwCommands = ["northwest", "nw"]
-    seCommands = ["southeast", "se"]
-    swCommands = ["southwest", "sw"]
-
-    upCommands = ["up", "u"]
-    downCommands = ["down", "d"]
-    inCommands = ["in"]
-    outCommands = ["out", "o"]
-
-    # todo: Special commands enabled by items
-
     # Commands that are always valid
-    validCommands = ["look", "l", "inventory", "i", "take", "get"]
+    validCommands = ["go", "move", "walk", "look", "l", "inventory", "i", "take", "get"]
+
+    # Determind valid movement commands
+    movementCommands = {
+        'n': ["north", "n"],
+        's': ["south", "s"],
+        'e': ["east", "e"],
+        'w': ["west", "w"],
+
+        'ne': ["northeast", "ne"],
+        'nw': ["northwest", "nw"],
+        'se': ["southeast", "se"],
+        'sw': ["southwest", "sw"],
+
+        'u': ["up", "u"],
+        'd': ["down", "d"],
+        'i': ["in"],
+        'o': ["out", "o"]
+    }
+    # Find details about the room we're in, see what directions it connects to other rooms in, and append them to the valid command list
+    for room in gameRooms:
+        if room['roomID'] == playerState['location']:
+            for connection in room['connections']: validCommands.extend(movementCommands[connection['direction']])
+
+    # Find valid special commands enabled by items
+    itemCommands = []
+    for itemID in playerState['inventory']:
+        for gameItem in gameItems:
+            if gameItem['itemID'] == itemID:
+                for action in gameItem['actions']: validCommands.append(' '.split(action['command']))
+
+    return validCommands
 
 def player_turn(command):
     command = ' '.split(command.lower())
