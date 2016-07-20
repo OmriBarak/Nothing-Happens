@@ -51,20 +51,10 @@ def describe_npc_info(npcs, npcStates):
         else: npcInfo += name + " is here. "
     return npcInfo
 
-
 directions = {
-    "n": "North",
-    "s": "South",
-    "e": "East",
-    "w": "West",
-    "ne": "North-East",
-    "nw": "North-West",
-    "se": "South-East",
-    "sw": "South-West",
-    "u": "up",
-    "d": "down",
-    "i": "in",
-    "o": "out"
+    "n": "North", "s": "South", "e": "East", "w": "West", 
+    "ne": "North-East", "nw": "North-West", "se": "South-East", "sw": "South-West",
+    "u": "up", "d": "down", "i": "in", "o": "out"
 }
 def describe_connection_info():
     connectionInfo = "There is "
