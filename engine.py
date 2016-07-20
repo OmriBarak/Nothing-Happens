@@ -14,16 +14,30 @@ with zipfile.ZipFile(config['gameFile'] + '.zip') as gameFile:
 
 print "Checking for save file..."
 if not os.path.isfile(config['saveFile'] + '.zip'):
-    print "Creating new save file...",
+    print "Save file not found. Creating new save file..."
+    # Save default state
+    with zipfile.ZipFile(config['gameFile'] + '.zip') as gameFile:
+        saveGame(
+            gameFile.read(config['gameFile'] + '/default-states/playerState.json'),
+            gameFile.read(config['gameFile'] + '/default-states/roomStates.json'),
+            gameFile.read(config['gameFile'] + '/default-states/itemStates.json'),
+            gameFile.read(config['gameFile'] + '/default-states/npcStates.json')
+        )
+else: print "Save file found."
+
+def loadGame():
+    pass
+
+def saveGame(playerState, roomStates, itemStates, npcStates):
+    print "Saving..."
     # Create a temporary save folder
     os.makedirs('_SAVE')
 
-    # Copy the over game's default states
-    with zipfile.ZipFile(config['gameFile'] + '.zip') as gameFile:
-        with open('_SAVE/playerState.json', 'w') as statesFile: statesFile.write(gameFile.read(config['gameFile'] + '/default-states/playerState.json'))
-        with open('_SAVE/roomStates.json', 'w') as statesFile: statesFile.write(gameFile.read(config['gameFile'] + '/default-states/roomStates.json'))
-        with open('_SAVE/itemStates.json', 'w') as statesFile: statesFile.write(gameFile.read(config['gameFile'] + '/default-states/itemStates.json'))
-        with open('_SAVE/npcStates.json', 'w') as statesFile: statesFile.write(gameFile.read(config['gameFile'] + '/default-states/npcStates.json'))
+    # Put our save data in the folder
+    with open('_SAVE/playerState.json', 'w') as statesFile: statesFile.write(playerState)
+    with open('_SAVE/roomStates.json', 'w') as statesFile: statesFile.write(roomStates)
+    with open('_SAVE/itemStates.json', 'w') as statesFile: statesFile.write(itemStates)
+    with open('_SAVE/npcStates.json', 'w') as statesFile: statesFile.write(npcStates)
 
     # Create a zip archive and add our save data
     saveFile = zipfile.ZipFile(config['saveFile'] + '.zip', 'w')
@@ -35,14 +49,7 @@ if not os.path.isfile(config['saveFile'] + '.zip'):
     # Close the zip file and delete the temporary save folder
     saveFile.close()
     shutil.rmtree('_SAVE')
-    print "[Done]"
-else: print "Save file exists. Continuing..."
-
-def loadGame():
-    pass
-
-def saveGame(playerState, roomStates, itemStates, npcStates):
-    pass
+    print "Saved."
 
 def playerTurn(command):
     pass
