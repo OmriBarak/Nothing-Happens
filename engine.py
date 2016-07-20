@@ -102,7 +102,7 @@ def engine_turn():
 
 while True:
     # Main game loop
-    roomDescription = room.make_room_description() # todo: write that function
+    roomDescription = room.make_room_description(playerState['location']) # todo: write that function
 
     command = raw_input(":: ")
     player_turn(command)
