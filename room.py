@@ -70,6 +70,11 @@ def describe_connection_info():
         else: connectionInfo += "."
     return connectionInfo
 
+def get_room_name(roomID, rooms):
+    for room in rooms:
+        if room['roomID'] == roomID:
+            return room['title']
+
 def get_valid_directions(roomID, rooms):
     # Takes current roomID and game room data input, returns list of (direction, roomID) tuples
     validDirections = []
