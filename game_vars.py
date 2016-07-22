@@ -16,7 +16,7 @@ def player_state():
     return playerState
 
 def state(thingType, thingID):
-    # Returns the state of a thing (room, item, or NPC) of type specified in args as a dict
+    # Returns as dict the state of a thing (room, item, or NPC) of type and ID specified in args
     if thingType == 'item': stateList = itemStates
     elif thingType == 'npc': stateList = npcStates
     elif thingType == 'room': stateList = roomStates
@@ -24,4 +24,13 @@ def state(thingType, thingID):
     for thing in stateList:
         if thing["ID"] == thingID:
             return thing
-    return {}       # If no thing with a matching ID is found, return an empty dict
+
+def thing(thingType, thingID):
+    # Returns as dict the game object of a thing (room, item, or NPC) of type and ID specified in args
+    if thingType == 'item': thingList = gameItems
+    elif thingType == 'npc': thingList = gameNpcs
+    elif thingType == 'room': thingList = gameRooms
+
+    for thing in thingList:
+        if thing["ID"] == thingID:
+            return thing
