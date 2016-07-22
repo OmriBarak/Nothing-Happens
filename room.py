@@ -42,7 +42,7 @@ def describe(roomID):
     # Format the room information as a string
     itemSentence = u""
     for count, item in enumerate(items):
-        itemSentence += u"a " + item[1]
+        itemSentence += item[1]
         if len(items) - 2 == count: itemSentence += u", and "
         elif len(items) - 1 != count: itemSentence += u", "
         elif len(items) - 1 == count: itemSentence += u" are here."
