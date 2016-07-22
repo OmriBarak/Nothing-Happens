@@ -8,12 +8,12 @@ directionCommands = ["n", "north", "s", "south", "e", "east", "w", "west", "ne",
 viewCommands = ["look", "l"]
 invCommands = ["inventory", "inv", "i"]
 
-retrievalCommands = ["take", "get"]
+invManagementCommands = ["take", "get", "drop"]
 usageCommands = ["use"]
 
 movementIntents = movementCommands + directionCommands
 informationIntents = viewCommands + invCommands
-interactionIntents = retrievalCommands + usageCommands
+interactionIntents = invManagementCommands + usageCommands
 
 directionMap = {
     'n': ["north", "n"], 's': ["south", "s"], 'e': ["east", "e"], 'w': ["west", "w"],
@@ -55,5 +55,16 @@ def do(command):
             infoutil.update_state('player', 'location', destination)
             return "You move " + direction + "..."
 
-    elif intent == "INFO": pass     # todo
+    elif intent == "INFO":
+        # Catch inventory-related commands right off the bat (inventory, i, look inventory, l inv, etc.)
+        for invCommand in invCommands:
+            if invCommand in command:
+                # todo: return inventory list
+
+        if command[0] in viewCommands:
+            if len(command) == 1:       # Look room
+                return room.describe(infoutil.player_state()['location'])
+            else:       # Look [object]
+                # Get list of objects in the room and carried by the player, return item description
+
     elif intent == "INTERACT": pass     # todo
