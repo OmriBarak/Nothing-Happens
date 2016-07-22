@@ -11,8 +11,8 @@
     },
     {
         "ID":       "001",
-        "name":         "coffee cup",
-        "synonyms":     "cup, mug, coffee mug",
+        "name":         "a coffee cup",
+        "synonyms":     "coffee cup, cup, coffee mug, mug",
         "description":  "It's a white coffee cup.",
         "weight": "0.2",
 
@@ -98,8 +98,8 @@
     },
     {
         "ID":       "002",
-        "name":         "pitcher of ice water",
-        "synonyms":     "ice water pitcher, ice water, pitcher of water, water pitcher, water",
+        "name":         "a pitcher of ice water",
+        "synonyms":     "pitcher of ice water, ice water pitcher, ice water, pitcher of water, water pitcher, water",
         "description":  "It's a clear pitcher of ice water. It's too big to drink from directly.",
         "weight": "1",
 
@@ -108,8 +108,8 @@
     },
     {
         "ID":       "003",
-        "name":         "pot of coffee",
-        "synonyms":     "carafe of coffee, carafe, coffee pot, pot, coffee",
+        "name":         "a pot of coffee",
+        "synonyms":     "pot of coffee, carafe of coffee, carafe, coffee pot, pot, coffee",
         "description":  "It's a steaming hot pot of coffee. It's too big to drink from directly.",
         "weight": "1",
 
@@ -118,8 +118,8 @@
     },
     {
         "ID":       "004",
-        "name":         "carton of orange juice",
-        "synonyms":     "orange juice carton, juice carton, carton, orange juice, juice",
+        "name":         "a carton of orange juice",
+        "synonyms":     "carton of orange juice, orange juice carton, juice carton, carton, orange juice, juice",
         "description":  "It's a carton of sweet orange juice. It's too big to drink from directly.",
         "weight": "1",
 
@@ -128,8 +128,8 @@
     },
     {
         "ID":       "005",
-        "name":         "widget",
-        "synonyms":     "",
+        "name":         "a widget",
+        "synonyms":     "widget",
         "description":  "Something for you to hold to demonstrate inventory management.",
         "weight": "0.1",
 

@@ -17,6 +17,7 @@ informationIntents = viewCommands + invCommands
 interactionIntents = invManagementCommands + usageCommands
 
 def list_inventory():
+    print infoutil.player_state()
     return infoutil.player_state()['inventory']
 
 directionMap = {
@@ -65,7 +66,7 @@ def do(command):
         for invCommand in invCommands:
             if invCommand in command:
                 for itemID in list_inventory():
-                    inventoryList.append(u"a " + item.name(itemID) + u"\n")
+                    inventoryList.append(item.name(itemID)[0].upper() + item.name(itemID)[1:] + u"\n")
                 return u"You have:\n" + ''.join(inventoryList)
 
         if command[0] in viewCommands:
