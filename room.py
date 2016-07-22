@@ -27,7 +27,37 @@ def describe(roomID):
 
     # Get directions to and information about remote rooms
     connections = []
-    for connection in roomInfo['connections']: connections.append((directionLongcodes[connection['direction']], infoutil.name('room', connection['room'])))
+    for connection in roomInfo['connections']: connections.append((infoutil.name('room', connection['room']), directionLongcodes[connection['direction']]))
+
+    # Format the room information as a string
+    itemSentence = u""
+    for count, item in enumerate(items):
+        itemSentence += u"a(n) " + item
+        if len(items) - 2 == count: itemSentence += u", and "
+        elif len(items) - 1 != count: itemSentence += u", "
+        elif len(items) - 1 == count: itemSentence += u" are here."
+
+    npcSentence = u""
+    for count, npc in enumerate(npcs):
+        npcSentence += npc
+        if len(npcs) - 2 == count: npcSentence += u", and "
+        elif len(npcs) - 1 != count: npcSentence += u", "
+        if len(npcs) > 1 and len(npcs) - 1 == count: npcSentence += u" are here."
+        elif len(npcs) == 1 and len(npcs) - 1 == count: npcSentence += u" is here."
+
+    connectionSentence = u""
+    if len(connections) > 1: connectionSentence += u"There is "
+    for connection in connections:
+        connectionSentence += u"a(n)" connection[0] + u" to the " + connection[1]
+        if len(connections) - 2 == count: connectionSentence += u", and "
+        elif len(connections) - 1 != count: connectionSentence += u", "
+        elif len(conncetions) - 1 == count: connectionSentence += u"."
+
+    passageList = [description, itemSentenece, npcSentence, connectionSentence]
+    passageStr = u""
+    for sentence in passageList:
+        if sentence != u"": passageStr += sentence[0].upper() + sentence[1:] + u" "
+    return title + u"\n\n" + passageStr
 
 def get_valid_directions(roomID):
     ## Takes roomID, returns list of (direction shortcode, room ID) tuples
