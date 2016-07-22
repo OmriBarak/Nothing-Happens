@@ -12,20 +12,23 @@ def name(roomID):
 def list_items(roomID):
     # Returns (itemID, item name) for item in room
     items = []
-    for itemID in infoutil.fetch('state', 'room', roomID)['items']: items.append((itemID, infoutil.name('item', itemID)))
+    for itemID in infoutil.fetch('state', 'room', roomID)['items']:
+        items.append((itemID, infoutil.name('item', itemID)))
     return items
 
 def list_npcs(roomID):
     # Returns (npcID, npc name) for npc in room
     npcs = []
     for npc in infoutil.npcStates:
-        if npc['location'] == roomID: npcs.append((npc['ID'], infoutil.name('npc', npc['ID'])))
+        if npc['location'] == roomID:
+            npcs.append((npc['ID'], infoutil.name('npc', npc['ID'])))
     return npcs
 
 def list_connections(roomID):
     # Returns (roomID, room name, direction shortcode, direction longcode) for connections in room
     connections = []
-    for connection in infoutil.fetch('info', 'room', roomID)['connections']: connections.append((connection['room'], infoutil.name('room', connection['room']), connection['direction'], directionLongcodes[connection['direction']]))
+    for connection in infoutil.fetch('info', 'room', roomID)['connections']:
+        connections.append((connection['room'], infoutil.name('room', connection['room']), connection['direction'], directionLongcodes[connection['direction']]))
     return connections
 
 def describe(roomID):
