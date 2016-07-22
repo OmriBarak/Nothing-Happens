@@ -21,12 +21,14 @@ def engine_turn():
     pass
 
 while True:
-    # Main game loop
-    roomDescription = room.make_room_description(playerState['location'], rooms, roomStates, items, npcs, npcStates) # todo: write that function
+    ## Main game loop
+    # Get the player's location
+    playerLocation = infoutil.player_state()['location']
 
+    # Describe the room
+    print room.describe(playerLocation)
+
+    # Get the player's command
     command = ' '.split(raw_input(":: "))
-    print player.do(command, rooms, playerState, roomStates, items, npcs, npcStates)
+    print player.do(command)
     engine_turn()
-
-    # todo: don't save every turn, allow "save" command to prompt save
-    save_game(playerState, roomStates, itemStates, npcStates)
