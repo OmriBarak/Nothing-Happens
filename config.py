@@ -1,9 +1,9 @@
 filecfg = {
-    "gameFile": "testGame",
-    "saveFile": "testSave"
+    "gameFile": "nh",
+    "saveFile": "nhSave"
 }
 
 buildcfg = {
-    "srcFolder": "./nhTest"
+    "srcFolder": "./nhTest",
     "buildFile": "nh"
 }
