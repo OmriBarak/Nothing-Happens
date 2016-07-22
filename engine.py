@@ -4,7 +4,7 @@ import json
 
 import files
 import player
-import room
+import room_functions
 from config import config
 
 # Init stuff

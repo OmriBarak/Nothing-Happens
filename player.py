@@ -1,4 +1,4 @@
-import room
+import room_functions
 
 # Command types
 movementCommands = ["go", "move", "walk"]
