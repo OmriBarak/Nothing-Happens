@@ -39,7 +39,7 @@ def describe(roomID):
     # Format the room information as a string
     itemSentence = u""
     for count, item in enumerate(items):
-        itemSentence += u"a(n) " + item[1]
+        itemSentence += u"a " + item[1]
         if len(items) - 2 == count: itemSentence += u", and "
         elif len(items) - 1 != count: itemSentence += u", "
         elif len(items) - 1 == count: itemSentence += u" are here."
@@ -54,11 +54,13 @@ def describe(roomID):
 
     connectionSentence = u""
     if len(connections) > 1: connectionSentence += u"There is "
-    for connection in connections:
-        connectionSentence += u"a(n)" + connection[1] + u" to the " + connection[3]
+    for count, connection in enumerate(connections):
+        connectionSentence += u"a " + connection[1] + u" to the " + connection[3]
         if len(connections) - 2 == count: connectionSentence += u", and "
         elif len(connections) - 1 != count: connectionSentence += u", "
-        elif len(conncetions) - 1 == count: connectionSentence += u"."
+        elif len(connections) - 1 == count: connectionSentence += u"."
+
+    # todo: Add "You can go __, __, and __."
 
     passageList = [description, itemSentence, npcSentence, connectionSentence]
     passageStr = u""
