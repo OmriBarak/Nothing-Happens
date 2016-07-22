@@ -1,6 +1,6 @@
 import infoutil
 
-directionsLongcodes = {
+directionLongcodes = {
     "n": "North", "s": "South", "e": "East", "w": "West", 
     "ne": "North-East", "nw": "North-West", "se": "South-East", "sw": "South-West",
     "u": "up", "d": "down", "i": "in", "o": "out"
