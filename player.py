@@ -29,7 +29,7 @@ def do(command):
     else: intent = "INTERACT"
 
     # Attempt to execute the command
-    if intent = "MOVE":
+    if intent == "MOVE":
         # Find the direction part of the command
         direction = ""
         for word in command:
@@ -46,54 +46,16 @@ def do(command):
         for connection in room.connections(infoutil.player_state()['location']):
             if directionShortcode in connection[2]:
                 destination = connection[0]
+                direction = connection[3]
                 break
         
-        if destination = "": return "There is no room in that direction."       # Fail state
+        if destination == "": return "There is no room in that direction."       # Fail state
         else:
-            # todo: update location
+            # Move the player
+            infoutil.update_state('player', 'location', destination)
+            return "You move " + direction + "..."
 
-    elif intent = "INFO": result = get_info(command)
-    elif intent = "INTERACT": result = interact(command)
+    elif intent == "INFO": pass     # todo
+    elif intent == "INTERACT": pass     # todo
 
     return result
-
-def move():
-    if command[0] in movementCommands:
-        if command[1] in directionCommands: directionCommand = command[1]
-    elif command[0] in directionCommands: directionCommand = command[0]
-
-    # Translate the command into direction shortcodes
-    for shortcode in directionMap.keys():
-        if directionCommand in directionMap[shortcode]:
-            direction = shortcode
-            break
-
-    # Move the player along the chosen direction to their target location
-    for room in rooms:
-        if room['roomID'] == playerState['location']:
-            for connection in connections:
-                if connection['direction'] == direction: 
-                    playerState['location'] = connection['room']
-                    return "Moved player to " + playerState['location']
-
-def get_info(roomStates, items, npcs, npcStates):
-    if command[0] in viewCommands:
-        inventoryItems = []
-        for itemID in playerState['inventory']:
-            for item in items:
-                if item['itemID'] == itemID:
-                    inventoryItems.append((item['name'] + item['synonyms'], itemID))
-                    break
-
-        if len(command) = 1 or command[1] in room.get_room_name(playerState['location'], rooms): return room.make_room_description(playerState['location'], rooms, roomStates, items, npcs, npcStates)
-        else:
-            for invItem in inventoryItems:
-                if command[1] in invItem[0]:
-                    for item in items:
-                        if item['itemID'] == invItem[1]: return item['description']
-    
-    elif command[0] in invCommands:
-        # todo: list items player has
-
-def interact():
-    pass

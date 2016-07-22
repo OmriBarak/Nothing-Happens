@@ -40,7 +40,7 @@ def describe(roomID):
     connectionSentence = u""
     if len(connections) > 1: connectionSentence += u"There is "
     for connection in connections:
-        connectionSentence += u"a(n)" connection[1] + u" to the " + connection[3]
+        connectionSentence += u"a(n)" + connection[1] + u" to the " + connection[3]
         if len(connections) - 2 == count: connectionSentence += u", and "
         elif len(connections) - 1 != count: connectionSentence += u", "
         elif len(conncetions) - 1 == count: connectionSentence += u"."
@@ -61,7 +61,7 @@ def npcs(roomID):
     # Returns (npcID, npc name) for npc in room
     npcs = []
     for npc in infoutil.npcStates:
-        if npc['location'] == roomID: npcs.append((npc['ID'], infoutil.name('npc', npc['ID']])))
+        if npc['location'] == roomID: npcs.append((npc['ID'], infoutil.name('npc', npc['ID'])))
     return npcs
 
 def connections(roomID):
