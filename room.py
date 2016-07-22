@@ -1,11 +1,24 @@
-def room_description(roomID, isRemote = False):     #todo: rooms, roomStates, items, npcs, npcStates
+import infoutil
+
+def title(roomID):
+    ## Get the title of a room and return it as a string
+    return infoutil.fetch('info', 'room', roomID)['title']
+
+def describe(roomID):
     ## Create and return a description of the roomID in argument
-    # Get room information from the game's data files
+    # Get room information and state from the game's data files
+    roomInfo = infoutil.fetch('info', 'room', roomID)
+    roomState = infoutil.fetch('state', 'room', roomID)
 
-    title = currentRoom['title']
-    passage = currentRoom['description'] + describe_item_info(roomStates) + describe_npc_info(npcs, npcStates), describe_connection_info()
+    # Get the room's title and description
+    title = title(roomID)
+    description = room['description'] + describe_item_info(roomStates) + describe_npc_info(npcs, npcStates), describe_connection_info()
 
-    description = title.upper() + "\n\n" + passage
+    # Get items in the room
+    for item in roomState['items']:
+        # Get item names
+
+
 
 def describe_item_info(roomStates):
     for room in roomStates:
