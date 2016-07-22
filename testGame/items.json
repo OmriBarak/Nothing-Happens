@@ -1,6 +1,6 @@
 [
     {
-        "itemID":       "000",
+        "ID":       "000",
         "name":         "bob's pen",
         "synonyms":     "pen",
         "description":  "It's Bob's pen.",
@@ -10,7 +10,7 @@
         "actions": []
     },
     {
-        "itemID":       "001",
+        "ID":       "001",
         "name":         "coffee cup",
         "synonyms":     "cup, mug, coffee mug",
         "description":  "It's a white coffee cup.",
@@ -97,7 +97,7 @@
         ]
     },
     {
-        "itemID":       "002",
+        "ID":       "002",
         "name":         "pitcher of ice water",
         "synonyms":     "ice water pitcher, ice water, pitcher of water, water pitcher, water",
         "description":  "It's a clear pitcher of ice water. It's too big to drink from directly.",
@@ -107,7 +107,7 @@
         "actions": []
     },
     {
-        "itemID":       "003",
+        "ID":       "003",
         "name":         "pot of coffee",
         "synonyms":     "carafe of coffee, carafe, coffee pot, pot, coffee",
         "description":  "It's a steaming hot pot of coffee. It's too big to drink from directly.",
@@ -117,7 +117,7 @@
         "actions": []
     },
     {
-        "itemID":       "004",
+        "ID":       "004",
         "name":         "carton of orange juice",
         "synonyms":     "orange juice carton, juice carton, carton, orange juice, juice",
         "description":  "It's a carton of sweet orange juice. It's too big to drink from directly.",

@@ -1,6 +1,6 @@
 [
     {
-        "npcID": "000",
+        "ID": "000",
         "name": "bob",
         "description": "It's Bob.",
         "patrol": "000, 002, 001",

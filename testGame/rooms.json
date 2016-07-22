@@ -1,6 +1,6 @@
 [
     {
-        "roomID":       "000",
+        "ID":       "000",
         "title":        "Kitchen",
         "description":  "It's a kitchen.",
 
@@ -17,7 +17,7 @@
         ]
     },
     {
-        "roomID":       "001",
+        "ID":       "001",
         "title":        "Living Room",
         "description":  "It's a living room.",
 
@@ -34,7 +34,7 @@
         ]
     },
     {
-        "roomID":       "002",
+        "ID":       "002",
         "title":        "Bedroom",
         "description":  "It's a bedroom.",
 
