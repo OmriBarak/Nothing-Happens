@@ -14,10 +14,7 @@ while True:
     playerState = infoutil.player_state()
     playerLocation = playerState['location']
 
-    # Describe the room
-    print room.describe(playerLocation)
-
     # Get the player's command
-    command = raw_input(":: ").split(' ')
+    command = raw_input(room.name(playerLocation).upper() + " :: ").split(' ')
     print player.do(command)
     engine_turn()

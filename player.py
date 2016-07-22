@@ -58,7 +58,7 @@ def do(command):
         else:
             # Move the player
             infoutil.update_state('player', 'location', destination)
-            return "You move " + direction + "..."
+            return "You move " + direction + "...\n" + room.describe(destination)
 
     elif intent == "INFO":
         # Catch inventory-related commands right off the bat (inventory, i, look inventory, l inv, etc.)

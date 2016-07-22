@@ -6,6 +6,9 @@ directionLongcodes = {
     "u": "up", "d": "down", "i": "in", "o": "out"
 }
 
+def name(roomID):
+    return infoutil.fetch('info', 'room', roomID)['name']
+
 def list_items(roomID):
     # Returns (itemID, item name) for item in room
     items = []
