@@ -1,7 +1,7 @@
 [
     {
         "ID":       "000",
-        "title":        "Kitchen",
+        "name":        "Kitchen",
         "description":  "It's a kitchen.",
 
         "connections":
@@ -18,7 +18,7 @@
     },
     {
         "ID":       "001",
-        "title":        "Living Room",
+        "name":        "Living Room",
         "description":  "It's a living room.",
 
         "connections":
@@ -35,7 +35,7 @@
     },
     {
         "ID":       "002",
-        "title":        "Bedroom",
+        "name":        "Bedroom",
         "description":  "It's a bedroom.",
 
         "connections":
