@@ -28,7 +28,7 @@ def list_connections(roomID):
 def describe(roomID):
     ## Create and return a description of the roomID in argument
     # Get the room's name and description
-    name = infoutil.name('room', roomID)
+    name = infoutil.name('room', roomID).upper()
     description = infoutil.fetch('info', 'room', roomID)['description']
 
     # Get items, NPCs, and connections for the room
@@ -60,10 +60,15 @@ def describe(roomID):
         elif len(connections) - 1 != count: connectionSentence += u", "
         elif len(connections) - 1 == count: connectionSentence += u"."
 
-    # todo: Add "You can go __, __, and __."
+    directionList = u"You can go "
+    for count, connection in enumerate(connections):
+        directionList += connection[3]
+        if len(connections) - 2 == count: directionList += u", and "
+        elif len(connections) - 1 != count: directionList += u", "
+        elif len(connections) - 1 == count: directionList += u"."
 
     passageList = [description, itemSentence, npcSentence, connectionSentence]
     passageStr = u""
     for sentence in passageList:
         if sentence != u"": passageStr += sentence[0].upper() + sentence[1:] + u" "
-    return name + u"\n\n" + passageStr
+    return u"\n" + name + u"\n\n" + passageStr + u"\n\n" + directionList
