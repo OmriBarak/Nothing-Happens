@@ -17,7 +17,7 @@ def player_state():
     return playerState
 
 def fetch(thingType, objectType, thingID):
-    ## Returns as dict the state of or info for (as specified in args) a thing (room, item, or NPC) of type and ID specified in args
+    # Returns as dict the state of or info for (as specified in args) a thing (room, item, or NPC) of type and ID specified in args
     if thingType == 'state':
         # Find states of things
         if thingType == 'item': thingList = itemStates
@@ -33,6 +33,11 @@ def fetch(thingType, objectType, thingID):
     for thing in stateList:
         if thing["ID"] == thingID:
             return thing
+
+def update_state(objectType, state, status):
+    # Updates the state of the given object
+    if objectType = 'player': playerState[state] = status
+    # todo: update other object types
 
 def name(objectType, thingID):
     ## Returns as string the name/title of whatever the thingID specified in args
