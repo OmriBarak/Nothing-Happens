@@ -11,16 +11,16 @@ def player_state():
     # Returns player state dict
     return playerState
 
-def fetch(thingType, objectType, thingID):
+def fetch(dataType, objectType, thingID):
     # Returns as dict the state of or info for (as specified in args) a thing (room, item, or NPC) of type and ID specified in args
     thingList = []
-    if thingType == 'state':
+    if dataType == 'state':
         # Find states of things
         if objectType == 'item': thingList = itemStates
         elif objectType == 'npc': thingList = npcStates
         elif objectType == 'room': thingList = roomStates
 
-    elif thingType == 'info':
+    elif dataType == 'info':
         # Find game info about things
         if objectType == 'item': thingList = gameItems
         elif objectType == 'npc': thingList = gameNpcs
@@ -36,7 +36,7 @@ def update_state(objectType, state, status):
     # todo: update other object types
 
 def name(objectType, thingID):
-    # Returns as string the name of whatever the thingID specified in args\
+    # Returns as string the name of whatever the thingID specified in args
     return fetch('info', objectType, thingID)['name']
 
 def save():
@@ -44,7 +44,7 @@ def save():
 
 print "Loading game data..."
 # Load game data
-gameRooms, gameNpcs, gameItems, playerState, roomStates, itemStates, npcStates =  ioutil.load_game_data()
+gameRooms, gameItems, gameNpcs, playerState, roomStates, itemStates, npcStates =  ioutil.load_game_data()
 
 print "Checking for save file..."
 if not os.path.isfile(filecfg['saveFile'] + '.zip'):
