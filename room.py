@@ -22,7 +22,7 @@ def list_npcs(roomID):
 def list_connections(roomID):
     # Returns (roomID, room name, direction shortcode, direction longcode) for connections in room
     connections = []
-    for connection in infoutil.fetch('info', 'room', roomID)['connections']: connections.append((connection['room'], (infoutil.name('room', connection['room']), connection['direction'], directionLongcodes[connection['direction']])))
+    for connection in infoutil.fetch('info', 'room', roomID)['connections']: connections.append((connection['room'], infoutil.name('room', connection['room']), connection['direction'], directionLongcodes[connection['direction']]))
     return connections
 
 def describe(roomID):
@@ -60,8 +60,8 @@ def describe(roomID):
         elif len(connections) - 1 != count: connectionSentence += u", "
         elif len(conncetions) - 1 == count: connectionSentence += u"."
 
-    passageList = [description, itemSentenece, npcSentence, connectionSentence]
+    passageList = [description, itemSentence, npcSentence, connectionSentence]
     passageStr = u""
     for sentence in passageList:
         if sentence != u"": passageStr += sentence[0].upper() + sentence[1:] + u" "
-    return title + u"\n\n" + passageStr
+    return name + u"\n\n" + passageStr
