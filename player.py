@@ -1,5 +1,6 @@
 import infoutil
 import room
+import item
 
 # Command types
 movementCommands = ["go", "move", "walk"]
@@ -14,6 +15,9 @@ usageCommands = ["use"]
 movementIntents = movementCommands + directionCommands
 informationIntents = viewCommands + invCommands
 interactionIntents = invManagementCommands + usageCommands
+
+def list_inventory():
+    return infoutil.player_state()['inventory']
 
 directionMap = {
     'n': ["north", "n"], 's': ["south", "s"], 'e': ["east", "e"], 'w': ["west", "w"],
@@ -57,14 +61,18 @@ def do(command):
 
     elif intent == "INFO":
         # Catch inventory-related commands right off the bat (inventory, i, look inventory, l inv, etc.)
+        inventoryList = []
         for invCommand in invCommands:
             if invCommand in command:
-                # todo: return inventory list
+                for itemID in list_inventory():
+                    inventoryList.append(u"a " + item.name(itemID) + u"\n")
+                return u"You have:\n" + ''.join(inventoryList)
 
         if command[0] in viewCommands:
             if len(command) == 1:       # Look room
                 return room.describe(infoutil.player_state()['location'])
             else:       # Look [object]
-                # Get list of objects in the room and carried by the player, return item description
+                # todo: get list of objects in the room and carried by the player, return item description
+                pass
 
     elif intent == "INTERACT": pass     # todo
