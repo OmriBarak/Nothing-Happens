@@ -43,7 +43,7 @@ def do(command):
 
         # Check to see if there is a room in that direction from the player's room
         destination = ""
-        for connection in room.connections(infoutil.player_state()['location']):
+        for connection in room.list_connections(infoutil.player_state()['location']):
             if directionShortcode in connection[2]:
                 destination = connection[0]
                 direction = connection[3]
@@ -57,5 +57,3 @@ def do(command):
 
     elif intent == "INFO": pass     # todo
     elif intent == "INTERACT": pass     # todo
-
-    return result

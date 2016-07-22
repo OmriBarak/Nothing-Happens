@@ -18,6 +18,6 @@ while True:
     print room.describe(playerLocation)
 
     # Get the player's command
-    command = ' '.split(raw_input(":: "))
+    command = raw_input(":: ").split(' ')
     print player.do(command)
     engine_turn()
