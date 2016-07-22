@@ -125,5 +125,15 @@
 
         "states": [],
         "actions": []
+    },
+    {
+        "ID":       "005",
+        "name":         "widget",
+        "synonyms":     "",
+        "description":  "Something for you to hold to demonstrate inventory management.",
+        "weight": "0.1",
+
+        "states": [],
+        "actions": []
     }
 ]
