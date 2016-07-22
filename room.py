@@ -29,11 +29,8 @@ def describe(roomID):
     connections = []
     for connection in roomInfo['connections']: connections.append((directionLongcodes[connection['direction']], infoutil.name('room', connection['room'])))
 
-def get_valid_directions(roomID, rooms):
-    # Takes current roomID and game room data input, returns list of (direction, roomID) tuples
+def get_valid_directions(roomID):
+    ## Takes roomID, returns list of (direction shortcode, room ID) tuples
     validDirections = []
-    for room in rooms:
-        if room['roomID'] == roomID:
-            for connection in room['connections']:
-                validDirections.append(connection['direction'], connection['room'])
+    for connection in infoutil.fetch('info', 'room', roomID)['connections']: validDirections.append(connection['direction'], connection['room'])
     return validDirections
