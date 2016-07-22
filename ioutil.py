@@ -33,7 +33,7 @@ def save_game(playerState, roomStates, itemStates, npcStates):
 
     # Delete the temporary save folder
     shutil.rmtree('_SAVE')
-    print "Saved."
+    print "Game saved."
 
 def load_game_data():
     with zipfile.ZipFile(filecfg['gameFile'] + '.zip') as gameFile:

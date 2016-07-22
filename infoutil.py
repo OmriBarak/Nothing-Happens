@@ -5,6 +5,7 @@ import json
 
 import ioutil
 
+print "Loading game data..."
 # Load game data
 gameRooms, gameNpcs, gameItems =  ioutil.load_game_data()
 
@@ -36,3 +37,6 @@ def fetch(thingType, objectType, thingID):
 def name(objectType, thingID):
     ## Returns as string the name/title of whatever the thingID specified in args
     return infoutil.fetch('info', 'room', roomID)['title']
+
+def save():
+    ioutil.save_game(playerState, roomStates, itemStates, npcStates)
