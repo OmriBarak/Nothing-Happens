@@ -1,16 +1,11 @@
 # Game Variable & State Information Utility
 # Stores and updates game vars and states for other modules to access and use
+import os
 import zipfile
 import json
 
 import ioutil
-
-print "Loading game data..."
-# Load game data
-gameRooms, gameNpcs, gameItems =  ioutil.load_game_data()
-
-# Load save data
-playerState, roomStates, itemStates, npcStates = ioutil.load_save()
+from config import filecfg
 
 def player_state():
     # Returns player state dict
@@ -18,30 +13,45 @@ def player_state():
 
 def fetch(thingType, objectType, thingID):
     # Returns as dict the state of or info for (as specified in args) a thing (room, item, or NPC) of type and ID specified in args
+    thingList = []
     if thingType == 'state':
         # Find states of things
-        if thingType == 'item': thingList = itemStates
-        elif thingType == 'npc': thingList = npcStates
-        elif thingType == 'room': thingList = roomStates
+        if objectType == 'item': thingList = itemStates
+        elif objectType == 'npc': thingList = npcStates
+        elif objectType == 'room': thingList = roomStates
 
     elif thingType == 'info':
         # Find game info about things
-        if thingType == 'item': thingList = gameItems
-        elif thingType == 'npc': thingList = gameItems
-        elif thingType == 'room': thingList = gameRooms
+        if objectType == 'item': thingList = gameItems
+        elif objectType == 'npc': thingList = gameNpcs
+        elif objectType == 'room': thingList = gameRooms
 
-    for thing in stateList:
+    for thing in thingList:
         if thing["ID"] == thingID:
             return thing
 
 def update_state(objectType, state, status):
     # Updates the state of the given object
-    if objectType = 'player': playerState[state] = status
+    if objectType == 'player': playerState[state] = status
     # todo: update other object types
 
 def name(objectType, thingID):
-    ## Returns as string the name/title of whatever the thingID specified in args
-    return infoutil.fetch('info', 'room', roomID)['title']
+    # Returns as string the name of whatever the thingID specified in args\
+    return fetch('info', objectType, thingID)['name']
 
 def save():
     ioutil.save_game(playerState, roomStates, itemStates, npcStates)
+
+print "Loading game data..."
+# Load game data
+gameRooms, gameNpcs, gameItems, playerState, roomStates, itemStates, npcStates =  ioutil.load_game_data()
+
+print "Checking for save file..."
+if not os.path.isfile(filecfg['saveFile'] + '.zip'):
+    print "Save file not found. Creating a new save file...",
+    save()
+    print "[Done]"
+else: print "Save file found."
+
+# Load save data
+playerState, roomStates, itemStates, npcStates = ioutil.load_save()
