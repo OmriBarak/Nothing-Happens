@@ -41,11 +41,11 @@
         "connections":
         [
             {
-                "direction":    "sw",
+                "direction":    "se",
                 "room":         "000"
             },
             {
-                "direction":    "nw",
+                "direction":    "ne",
                 "room":         "001"
             }
         ]
