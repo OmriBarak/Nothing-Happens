@@ -2,14 +2,14 @@ import os
 import zipfile
 import json
 
-import files
+import game_io
 import player
 import room_functions
 from config import config
 
 # Init stuff
 print "Loading game data..."
-rooms, items, npcs = files.load_game_data()
+rooms, items, npcs = game_io.load_game_data()
 
 print "Checking for save file..."
 if not os.path.isfile(config['saveFile'] + '.zip'):

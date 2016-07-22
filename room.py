@@ -1,9 +1,6 @@
-def make_room_description(roomID, rooms, roomStates, items, npcs, npcStates):
-    global RoomID, rooms
-    # Creates a textual description of the room the player is in
-    currentRoom = {}
-    for room in rooms: 
-        if room['roomID'] == roomID: currentRoom = room
+def room_description(roomID, isRemote = False):     #todo: rooms, roomStates, items, npcs, npcStates
+    ## Create and return a description of the roomID in argument
+    # Get room information from the game's data files
 
     title = currentRoom['title']
     passage = currentRoom['description'] + describe_item_info(roomStates) + describe_npc_info(npcs, npcStates), describe_connection_info()

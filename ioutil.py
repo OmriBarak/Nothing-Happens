@@ -1,3 +1,5 @@
+# I/O Utility
+# For interacting with .zip files and the filesystem
 import shutil
 import zipfile
 
