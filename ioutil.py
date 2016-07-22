@@ -3,10 +3,10 @@
 import shutil
 import zipfile
 
-from config import cfg
+from config import filecfg
 
 def load_save():
-    with zipfile.ZipFile(config['saveFile'] + '.zip') as saveFile:
+    with zipfile.ZipFile(filecfg['saveFile'] + '.zip') as saveFile:
         playerState = saveFile.read('_SAVE/playerState.json')
         roomStates = saveFile.read('_SAVE/roomStates.json')
         itemStates = saveFile.read('_SAVE/itemStates.json')
@@ -25,7 +25,7 @@ def save_game(playerState, roomStates, itemStates, npcStates):
     with open('_SAVE/npcStates.json', 'w') as statesFile: statesFile.write(npcStates)
 
     # Create a zip archive and add our save data
-    with zipfile.ZipFile(config['saveFile'] + '.zip', 'w') as saveFile:
+    with zipfile.ZipFile(filecfg['saveFile'] + '.zip', 'w') as saveFile:
         saveFile.write('_SAVE/playerState.json')
         saveFile.write('_SAVE/roomStates.json')
         saveFile.write('_SAVE/itemStates.json')
@@ -36,9 +36,9 @@ def save_game(playerState, roomStates, itemStates, npcStates):
     print "Saved."
 
 def load_game_data():
-    with zipfile.ZipFile(config['gameFile'] + '.zip') as gameFile:
-        rooms = json.loads(gameFile.read(config['gameFile'] + '/rooms.json'))
-        items = json.loads(gameFile.read(config['gameFile'] + '/items.json'))
-        npcs = json.loads(gameFile.read(config['gameFile'] + '/npcs.json'))
+    with zipfile.ZipFile(filecfg['gameFile'] + '.zip') as gameFile:
+        rooms = json.loads(gameFile.read(filecfg['gameFile'] + '/rooms.json'))
+        items = json.loads(gameFile.read(filecfg['gameFile'] + '/items.json'))
+        npcs = json.loads(gameFile.read(filecfg['gameFile'] + '/npcs.json'))
 
     return rooms, items, npcs
