@@ -1,4 +1,5 @@
-import room_functions
+import infoutil
+import room
 
 # Command types
 movementCommands = ["go", "move", "walk"]
@@ -10,63 +11,60 @@ invCommands = ["inventory", "inv", "i"]
 retrievalCommands = ["take", "get"]
 usageCommands = ["use"]
 
-# Direction map
-directionDict = {
+movementIntents = movementCommands + directionCommands
+informationIntents = viewCommands + invCommands
+interactionIntents = retrievalCommands + usageCommands
+
+directionMap = {
     'n': ["north", "n"], 's': ["south", "s"], 'e': ["east", "e"], 'w': ["west", "w"],
     'ne': ["northeast", "ne"], 'nw': ["northwest", "nw"], 'se': ["southeast", "se"], 'sw': ["southwest", "sw"],
     'u': ["up", "u"], 'd': ["down", "d"], 'i': ["in"], 'o': ["out", "o"]
 }
+def do(command):
+    ## Attempts to make the player character do the player's command
 
-def do(command, rooms, playerState, roomStates, items, npcs, npcStates):
-    global command, rooms, playerState
-    validCommands = determine_valid_commands()
-    intent = determine_command_intent()
-
-    if command[0] not in validCommands: print "[WARN] Invalid command detected!"
-    if intent = "MOVE": result = do_move()
-    elif intent = "INFO": result = do_info(roomStates, items, npcs, npcStates)
-    elif intent = "INTERACT": result = do_interact()
-
-    return result
-
-def determine_valid_commands():
-    # Commands that are always valid
-    validCommands = movementCommands + viewCommands + invCommands + retrievalCommands + usageCommands
-
-    # Determine valid movement commands
-    # Find details about the room we're in, see what directions it connects to other rooms in, and append them to the valid command list
-    for direction in room.get_valid_directions(playerState['location'], rooms):
-        if direction[0] in movementDict.keys():
-            validCommands.extend(movementDict[direction[0]])
-
-    # Find valid special commands enabled by items
-    itemCommands = []
-    for itemID in playerState['inventory']:
-        for gameItem in items:
-            if gameItem['itemID'] == itemID:
-                for action in gameItem['actions']: validCommands.append(' '.split(action['command']))
-
-    print "[DEBUG] Valid commands: " + str(validCommands)
-    return validCommands
-
-def determine_command_intent():
-    movementIntents = movementCommands + directionCommands
-    informationIntents = viewCommands + invCommands
-    interactionIntents = retrievalCommands + usageCommands
-    # Try to determine what kind of command we're working with
+    # Determine player intent
     if command[0] in movementIntents: intent = "MOVE"
     elif command[0] in informationIntents: intent = "INFO"
     else: intent = "INTERACT"
-    return intent
 
-def do_move():
+    # Attempt to execute the command
+    if intent = "MOVE":
+        # Find the direction part of the command
+        direction = ""
+        for word in command:
+            if word in directionCommands: direction = word
+        
+        # Get the direction's shortcode
+        for shortcode in directionMap.keys():
+            if direction in directionMap[shortcode]:
+                directionShortcode = shortcode
+                break
+
+        # Check to see if there is a room in that direction from the player's room
+        destination = ""
+        for connection in room.connections(infoutil.player_state()['location']):
+            if directionShortcode in connection[2]:
+                destination = connection[0]
+                break
+        
+        if destination = "": return "There is no room in that direction."       # Fail state
+        else:
+            # todo: update location
+
+    elif intent = "INFO": result = get_info(command)
+    elif intent = "INTERACT": result = interact(command)
+
+    return result
+
+def move():
     if command[0] in movementCommands:
         if command[1] in directionCommands: directionCommand = command[1]
     elif command[0] in directionCommands: directionCommand = command[0]
 
     # Translate the command into direction shortcodes
-    for shortcode in directionDict.keys():
-        if directionCommand in directionDict[shortcode]:
+    for shortcode in directionMap.keys():
+        if directionCommand in directionMap[shortcode]:
             direction = shortcode
             break
 
@@ -78,7 +76,7 @@ def do_move():
                     playerState['location'] = connection['room']
                     return "Moved player to " + playerState['location']
 
-def do_info(roomStates, items, npcs, npcStates):
+def get_info(roomStates, items, npcs, npcStates):
     if command[0] in viewCommands:
         inventoryItems = []
         for itemID in playerState['inventory']:
@@ -97,5 +95,5 @@ def do_info(roomStates, items, npcs, npcStates):
     elif command[0] in invCommands:
         # todo: list items player has
 
-def do_interact():
+def interact():
     pass
