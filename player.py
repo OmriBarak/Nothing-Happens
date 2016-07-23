@@ -1,6 +1,7 @@
 import infoutil
 import room
 import item
+import npc
 
 # Command types
 movementCommands = ["go", "move", "walk"]
