@@ -80,14 +80,14 @@ def do(command):
             else:       # Look [object]
                 #check if [object] is an npc
                 npcs = room.list_npcs()
-                for npcID in npcs:
-                    if command[1] == npc.name(npcID): return npc.describe(npcID)
+                for (npcID, npcName) in npcs:
+                    if command[1] == npcName: return npc.describe(npcID)
                 
                 #check if [object] is an item
                 items = room.list_items(infoutil.player_state()['location'])
                 items.append(list_inventory())
-                for itemID in items:
-                    if command[1] == item.name(itemID): return item.describe(itemID)
+                for (itemID, itemName) in items:
+                    if command[1] == itemName: return item.describe(itemID)
                 
                 #else
                 return "No such object exists." #TODO: phrase better
