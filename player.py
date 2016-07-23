@@ -39,11 +39,9 @@ def do(command):
         # Find the direction part of the command
         direction = ""
         
-        #TODO: Protect this from whether a player issues two directions in their command,
-        #aka "move northwest southwest"
         for word in command:
             if word in directionCommands: direction = word
-            #break ?
+            break
         
         # Get the direction's shortcode
         for shortcode in directionMap.keys():
@@ -54,15 +52,15 @@ def do(command):
         # Check to see if there is a room in that direction from the player's room
         destination = ""
         for connection in room.list_connections(infoutil.player_state()['location']):
-            #TODO: what
             if directionShortcode in connection[2]:
                 destination = connection[0]
                 direction = connection[3]
                 break
         
+        #TODO: Make these messages customizable
         if destination == "":
             return "There is no room in that direction."       # Fail state
-            #return narrator.noRoomInThatDirectionError <- consolidate error codes to one file for editability
+            #return narrator.narrateError(errorcode.noRoomInDirection, [])
         else:
             # Move the player
             infoutil.update_state('player', 'location', destination)
