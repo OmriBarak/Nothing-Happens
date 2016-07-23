@@ -57,15 +57,12 @@ def do(command):
                 direction = connection[3]
                 break
         
-        #TODO: Make these messages customizable
         if destination == "":
             return "There is no room in that direction."       # Fail state
-            #return narrator.narrateError(errorcode.noRoomInDirection, [])
         else:
             # Move the player
             infoutil.update_state('player', 'location', destination)
             return "You move " + direction + "... \n" + room.describe(destination)
-            #return narrator.narrateMove(direction) + "\n" + room.describe(destination)
 
     elif intent == "INFO":
         # Catch inventory-related commands right off the bat (inventory, i, look inventory, l inv, etc.)
@@ -75,14 +72,24 @@ def do(command):
                 for itemID in list_inventory():
                     inventoryList.append(item.name(itemID)[0].upper() + item.name(itemID)[1:] + u"\n")
                 return u"You have:\n" + ''.join(inventoryList)
-                #return narrator.narrateItems(inventoryList)
 
         if command[0] in viewCommands:
-            if len(command) == 1:       # Look room
+            if len(command) == 1 or command[1] == "room":       # Look room
                 return room.describe(infoutil.player_state()['location'])
-                #return narrator.describeRoom(infoutil.player_state()['location'])
             else:       # Look [object]
-                # todo: get list of objects in the room and carried by the player, return item description
-                pass
+                #check if [object] is an npc
+                npcs = room.list_npcs()
+                for npcID in npcs:
+                    if command[1] == npc.name(npcID): return npc.describe(npcID)
+                
+                #check if [object] is an item
+                items = room.list_items(infoutil.player_state()['location'])
+                items.append(list_inventory())
+                for itemID in items:
+                    if command[1] == item.name(itemID): return item.describe(itemID)
+                
+                #else
+                return "No such object exists." #TODO: phrase better
+            #TODO: test if this works
 
     elif intent == "INTERACT": pass     # todo
