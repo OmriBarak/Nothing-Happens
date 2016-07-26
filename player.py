@@ -58,11 +58,11 @@ def do(command):
                 break
         
         if destination == "":
-            return "There is no room in that direction."       # Fail state
+            return u"There is no room in that direction."       # Fail state
         else:
             # Move the player
             infoutil.update_state('player', 'location', destination)
-            return "You move " + direction + "... \n" + room.describe(destination)
+            return u"You move " + direction + "... \n" + room.describe(destination)
 
     elif intent == "INFO":
         # Catch inventory-related commands right off the bat (inventory, i, look inventory, l inv, etc.)
@@ -74,20 +74,20 @@ def do(command):
                 return u"You have:\n" + ''.join(inventoryList)
 
         if command[0] in viewCommands:
-            if len(command) == 1 or command[1] == "room":       # Look room
+            if len(command) == 1 or command[1] == u"room":       # Look room
                 return room.describe(infoutil.player_state()['location'])
             else:       # Look [object]
                 #check if [object] is an npc
                 for npci in room.list_npcs(infoutil.player_state()['location']):
-                    if command[1].lower() == npci[1].lower(): return npc.describe(npci[0])
+                    if command[1].lower() == npci[1]: return npc.describe(npci[0])
                 
                 #check if [object] is an item
                 # todo: add inventory items in (itemID, u"item name") format
                 for itemi in room.list_items(infoutil.player_state()['location']):
-                    if command[1].lower() == itemi[1].lower(): return item.describe(itemi[0])
+                    if command[1].lower() == itemi[1] or command[1] in item.synonyms(itemi[0]): return item.describe(itemi[0])
                 
                 #else
-                return "No such object exists." #TODO: phrase better
+                return u"You can\'t see that here!"
             #TODO: test if this works
 
     elif intent == "INTERACT": pass     # todo
