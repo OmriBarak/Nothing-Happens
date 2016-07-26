@@ -1,7 +1,7 @@
 import infoutil
 
 def name(npcID):
-    return infoutil.fetch('info', 'npc', itemID)['name']
+    return infoutil.fetch('info', 'npc', npcID)['name']
     
 def describe(npcID):
-    return infoutil.fetch('info', 'npc', itemID)['description']
+    return infoutil.fetch('info', 'npc', npcID)['description']
