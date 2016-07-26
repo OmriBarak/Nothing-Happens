@@ -8,11 +8,11 @@ import ioutil
 from config import filecfg
 
 def player_state():
-    # Returns player state dict
+    # Returns player state
     return playerState
 
 def fetch(dataType, objectType, thingID):
-    # Returns as dict the state of or info for (as specified in args) a thing (room, item, or NPC) of type and ID specified in args
+    # Returns the state of or info for (as specified in args) a thing (room, item, or NPC) of type and ID specified in args
     thingList = []
     if dataType == 'state':
         # Find states of things
@@ -30,9 +30,12 @@ def fetch(dataType, objectType, thingID):
         if thing["ID"] == thingID:
             return thing
 
-def update_state(objectType, state, status):
+def update_state(objectType, state, status, thingID=""):
     # Updates the state of the given object
     if objectType == 'player': playerState[state] = status
+    elif objectType == 'room': 
+        for count, room in enumerate(roomStates):
+            if room["ID"] == thingID: room[state] = status
     # todo: update other object types
 
 def name(objectType, thingID):
