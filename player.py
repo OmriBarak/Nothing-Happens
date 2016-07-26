@@ -24,7 +24,6 @@ directionMap = {
 }
 
 def list_inventory():
-    print infoutil.player_state()
     return infoutil.player_state()['inventory']
 
 def do(command):
@@ -79,15 +78,13 @@ def do(command):
                 return room.describe(infoutil.player_state()['location'])
             else:       # Look [object]
                 #check if [object] is an npc
-                npcs = room.list_npcs()
-                for (npcID, npcName) in npcs:
-                    if command[1] == npcName: return npc.describe(npcID)
+                for npci in room.list_npcs(infoutil.player_state()['location']):
+                    if command[1].lower() == npci[1].lower(): return npc.describe(npci[0])
                 
                 #check if [object] is an item
-                items = room.list_items(infoutil.player_state()['location'])
-                items.append(list_inventory())
-                for (itemID, itemName) in items:
-                    if command[1] == itemName: return item.describe(itemID)
+                # todo: add inventory items in (itemID, u"item name") format
+                for itemi in room.list_items(infoutil.player_state()['location']):
+                    if command[1].lower() == itemi[1].lower(): return item.describe(itemi[0])
                 
                 #else
                 return "No such object exists." #TODO: phrase better
