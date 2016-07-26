@@ -13,9 +13,9 @@ invCommands = ["inventory", "inv", "i"]
 invManagementCommands = ["take", "get", "drop"]
 usageCommands = ["use"]
 
-movementIntents = movementCommands + directionCommands
-informationIntents = viewCommands + invCommands
-interactionIntents = invManagementCommands + usageCommands
+moveIntents = movementCommands + directionCommands
+lookIntents = viewCommands + invCommands
+interactIntents = invManagementCommands + usageCommands
 
 directionMap = {
     'n': ["north", "n"], 's': ["south", "s"], 'e': ["east", "e"], 'w': ["west", "w"],
@@ -30,9 +30,10 @@ def do(command):
     ## Attempts to make the player character do the player's command
 
     # Determine player intent
-    if command[0] in movementIntents: intent = "MOVE"
-    elif command[0] in informationIntents: intent = "INFO"
-    else: intent = "INTERACT"
+    if command[0] in moveIntents: intent = "MOVE"
+    elif command[0] in lookIntents: intent = "LOOK"
+    elif command[0] in interactIntents: intent = "INTERACT"
+    else: return u"You can\'t do that!"
 
     # Attempt to execute the command
     if intent == "MOVE":
@@ -64,7 +65,7 @@ def do(command):
             infoutil.update_state('player', 'location', destination)
             return u"You move " + direction + "... \n" + room.describe(destination)
 
-    elif intent == "INFO":
+    elif intent == "LOOK":
         # Catch inventory-related commands right off the bat (inventory, i, look inventory, l inv, etc.)
         inventoryList = []
         for invCommand in invCommands:
@@ -91,3 +92,11 @@ def do(command):
             #TODO: test if this works
 
     elif intent == "INTERACT": pass     # todo
+
+def move(command):
+    pass
+
+def look(command):
+    pass
+
+def 
