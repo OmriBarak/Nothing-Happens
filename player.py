@@ -10,7 +10,7 @@ directionCommands = [u"n", u"north", u"s", u"south", u"e", u"east", u"w", u"west
 viewCommands = [u"look", u"l"]
 invCommands = [u"inventory", u"inv", u"i"]
 
-invManagementCommands = [u"take", u"get", u"drop"]
+invManagementCommands = [u"take", u"get", u"drop", u"put", u"place"]
 usageCommands = [u"use"]
 
 moveIntents = movementCommands + directionCommands
@@ -31,8 +31,7 @@ def do(command):
     # Determine player intent
     if command[0] in moveIntents: intent = "MOVE"
     elif command[0] in lookIntents: intent = "LOOK"
-    elif command[0] in interactIntents: intent = "INTERACT"
-    else: return u"You can\'t do that!"
+    else: intent = "INTERACT"
 
     # Attempt to execute the command
     if intent == "MOVE": return move(command)
@@ -104,4 +103,13 @@ def look(command):
         return u"You can\'t see that here!"
 
 def interact(command):
-    pass
+    # Take/get [object]
+    if command[0] in [u"take", u"get"]:
+        pass
+
+    # Drop [object], put (down) [object], etc.
+    if command[0] in [u"drop", u"put", u"place"]:
+        pass
+
+    # todo: use [x] on [y]
+    # todo: item commands
