@@ -6,6 +6,7 @@ import item
 import npc
 
 def engine_turn():
+    # Move npcs, increment timers
     pass
 
 while True:

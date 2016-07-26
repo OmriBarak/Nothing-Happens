@@ -48,9 +48,8 @@ gameRooms, gameItems, gameNpcs, playerState, roomStates, itemStates, npcStates =
 
 print "Checking for save file..."
 if not os.path.isfile(filecfg['saveFile'] + '.zip'):
-    print "Save file not found. Creating a new save file...",
+    print "Save file not found. Creating a new save file..."
     save()
-    print "[Done]"
 else: print "Save file found."
 
 # Load save data
