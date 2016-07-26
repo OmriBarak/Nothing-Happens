@@ -108,7 +108,7 @@ def interact(command):
         pass
 
     # Drop [object], put (down) [object], etc.
-    if command[0] in [u"drop", u"put", u"place"]:
+    elif command[0] in [u"drop", u"put", u"place"]:
         pass
 
     # todo: use [x] on [y]
