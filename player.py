@@ -78,11 +78,9 @@ def look(command):
 
     # Look inventory, inventory, i, look inv, etc.
     inventoryList = []
-    for invCmd in invCommands:
-        if invCmd in lookTarget:
-            for itemID in list_inventory():
-                inventoryList.append(item.name(itemID)[0].upper() + item.name(itemID)[1:] + u"\n")
-            return u"You have:\n" + ''.join(inventoryList)
+    if lookTarget in invCommands:
+        for itemID in list_inventory(): inventoryList.append(item.name(itemID)[0].upper() + item.name(itemID)[1:] + u"\n")
+        return u"You have:\n" + ''.join(inventoryList)
 
     # Look room
     if lookTarget == u"room": return room.describe(infoutil.player_state()['location'])
@@ -94,8 +92,12 @@ def look(command):
             if lookTarget.lower() == npci[1]: return npc.describe(npci[0])
         
         # check if [object] is an item
-        # todo: add inventory items in (itemID, u"item name") format
-        for itemi in room.list_items(infoutil.player_state()['location']):
+        # Get the names of held items
+        invItems = []
+        for invItem in list_inventory(): invItems.append((invItem, infoutil.name('item', invItem)))
+
+        # Look for the item in the command in a list of items in the room and held items
+        for itemi in room.list_items(infoutil.player_state()['location']) + invItems:
             if lookTarget.lower() == itemi[1] or lookTarget in item.synonyms(itemi[0]): return item.describe(itemi[0])
         
         # if the item/npc isn't found
