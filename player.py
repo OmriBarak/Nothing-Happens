@@ -65,7 +65,7 @@ def move(command):
     else:
         # Move the player
         infoutil.update_state('player', 'location', destination)
-        return u"You move " + direction + "... \n" + room.describe(destination)
+        return u"You move " + direction + "..." + room.describe(destination)
 
 def look(command):
     # Find the thing to look at in the command
@@ -79,8 +79,8 @@ def look(command):
     # Look inventory, inventory, i, look inv, etc.
     inventoryList = []
     if lookTarget in invCommands:
-        for itemID in list_inventory(): inventoryList.append(item.name(itemID)[0].upper() + item.name(itemID)[1:] + u"\n")
-        return u"You have:\n" + ''.join(inventoryList)
+        for itemID in list_inventory(): inventoryList.append(item.name(itemID)[0].upper() + item.name(itemID)[1:])
+        return u"You have:\n" + '\n'.join(inventoryList)
 
     # Look room
     if lookTarget == u"room": return room.describe(infoutil.player_state()['location'])
