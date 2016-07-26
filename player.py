@@ -4,14 +4,14 @@ import item
 import npc
 
 # Command types
-movementCommands = ["go", "move", "walk"]
-directionCommands = ["n", "north", "s", "south", "e", "east", "w", "west", "ne", "northeast", "nw", "northwest", "se", "southeast", "sw", "southwest", "u", "up", "d", "down", "in", "o", "out"]
+movementCommands = [u"go", u"move", u"walk"]
+directionCommands = [u"n", u"north", u"s", u"south", u"e", u"east", u"w", u"west", u"ne", u"northeast", u"nw", u"northwest", u"se", u"southeast", u"sw", u"southwest", u"u", u"up", u"d", u"down", u"in", u"o", u"out"]
 
-viewCommands = ["look", "l"]
-invCommands = ["inventory", "inv", "i"]
+viewCommands = [u"look", u"l"]
+invCommands = [u"inventory", u"inv", u"i"]
 
-invManagementCommands = ["take", "get", "drop"]
-usageCommands = ["use"]
+invManagementCommands = [u"take", u"get", u"drop"]
+usageCommands = [u"use"]
 
 moveIntents = movementCommands + directionCommands
 lookIntents = viewCommands + invCommands
@@ -28,7 +28,6 @@ def list_inventory():
 
 def do(command):
     ## Attempts to make the player character do the player's command
-
     # Determine player intent
     if command[0] in moveIntents: intent = "MOVE"
     elif command[0] in lookIntents: intent = "LOOK"
@@ -36,67 +35,71 @@ def do(command):
     else: return u"You can\'t do that!"
 
     # Attempt to execute the command
-    if intent == "MOVE":
-        # Find the direction part of the command
-        direction = ""
-        
-        for word in command:
-            if word in directionCommands: direction = word
-            break
-        
-        # Get the direction's shortcode
-        for shortcode in directionMap.keys():
-            if direction in directionMap[shortcode]:
-                directionShortcode = shortcode
-                break
-
-        # Check to see if there is a room in that direction from the player's room
-        destination = ""
-        for connection in room.list_connections(infoutil.player_state()['location']):
-            if directionShortcode in connection[2]:
-                destination = connection[0]
-                direction = connection[3]
-                break
-        
-        if destination == "":
-            return u"There is no room in that direction."       # Fail state
-        else:
-            # Move the player
-            infoutil.update_state('player', 'location', destination)
-            return u"You move " + direction + "... \n" + room.describe(destination)
-
-    elif intent == "LOOK":
-        # Catch inventory-related commands right off the bat (inventory, i, look inventory, l inv, etc.)
-        inventoryList = []
-        for invCommand in invCommands:
-            if invCommand in command:
-                for itemID in list_inventory():
-                    inventoryList.append(item.name(itemID)[0].upper() + item.name(itemID)[1:] + u"\n")
-                return u"You have:\n" + ''.join(inventoryList)
-
-        if command[0] in viewCommands:
-            if len(command) == 1 or command[1] == u"room":       # Look room
-                return room.describe(infoutil.player_state()['location'])
-            else:       # Look [object]
-                #check if [object] is an npc
-                for npci in room.list_npcs(infoutil.player_state()['location']):
-                    if command[1].lower() == npci[1]: return npc.describe(npci[0])
-                
-                #check if [object] is an item
-                # todo: add inventory items in (itemID, u"item name") format
-                for itemi in room.list_items(infoutil.player_state()['location']):
-                    if command[1].lower() == itemi[1] or command[1] in item.synonyms(itemi[0]): return item.describe(itemi[0])
-                
-                #else
-                return u"You can\'t see that here!"
-            #TODO: test if this works
-
-    elif intent == "INTERACT": pass     # todo
+    if intent == "MOVE": return move(command)
+    elif intent == "LOOK": return look(command)
+    elif intent == "INTERACT": return interact(command)
 
 def move(command):
-    pass
+    # Find the direction part of the command
+    direction = ""
+    for word in command:
+        if word in directionCommands: direction = word
+        break
+    
+    # Get the direction's shortcode
+    for shortcode in directionMap.keys():
+        if direction in directionMap[shortcode]:
+            directionShortcode = shortcode
+            break
+
+    # Check to see if there is a room in that direction from the player's room
+    destination = ""
+    for connection in room.list_connections(infoutil.player_state()['location']):
+        if directionShortcode in connection[2]:
+            destination = connection[0]
+            direction = connection[3]
+            break
+    
+    if destination == "":
+        return u"There is no room in that direction."       # Fail state
+    else:
+        # Move the player
+        infoutil.update_state('player', 'location', destination)
+        return u"You move " + direction + "... \n" + room.describe(destination)
 
 def look(command):
-    pass
+    # Find the thing to look at in the command
+    lookTarget = ""
+    for word in command:
+        if word not in viewCommands + [u"at"]:
+            lookTarget = word
+            break
+    if lookTarget == "": lookTarget = u"room"
 
-def 
+    # Look inventory, inventory, i, look inv, etc.
+    inventoryList = []
+    for invCmd in invCommands:
+        if invCmd in lookTarget:
+            for itemID in list_inventory():
+                inventoryList.append(item.name(itemID)[0].upper() + item.name(itemID)[1:] + u"\n")
+            return u"You have:\n" + ''.join(inventoryList)
+
+    # Look room
+    if lookTarget == u"room": return room.describe(infoutil.player_state()['location'])
+
+    # Look [object]
+    else:
+        # check if [object] is an npc
+        for npci in room.list_npcs(infoutil.player_state()['location']):
+            if lookTarget.lower() == npci[1]: return npc.describe(npci[0])
+        
+        # check if [object] is an item
+        # todo: add inventory items in (itemID, u"item name") format
+        for itemi in room.list_items(infoutil.player_state()['location']):
+            if lookTarget.lower() == itemi[1] or lookTarget in item.synonyms(itemi[0]): return item.describe(itemi[0])
+        
+        # if the item/npc isn't found
+        return u"You can\'t see that here!"
+
+def interact(command):
+    pass
