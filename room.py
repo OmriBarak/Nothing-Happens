@@ -75,7 +75,3 @@ def describe(roomID):
     for sentence in passageList:
         if sentence != u"": passageStr += sentence[0].upper() + sentence[1:] + u" "
     return u"\n" + name + u"\n\n" + passageStr + u"\n\n" + directionList
-
-def remove_item(roomID, itemID):
-    roomItems = infoutil.fetch('state', 'room', roomID)['items']:
-    update_state('room', 'items', roomItems.remove(itemID), roomID)
