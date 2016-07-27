@@ -4,14 +4,14 @@ import zipfile
 
 from config import buildcfg
 
-print "Building game from " + buildcfg['srcFolder'] + "..."
+print "Building game from ./" + buildcfg['buildFile'] + "..."
 # Create a zip archive and add the game data
 with zipfile.ZipFile(buildcfg['buildFile'] + '.zip', 'w') as buildFile:
-    buildFile.write(buildcfg['srcFolder'] + '/items.json')
-    buildFile.write(buildcfg['srcFolder'] + '/npcs.json')
-    buildFile.write(buildcfg['srcFolder'] + '/rooms.json')
-    buildFile.write(buildcfg['srcFolder'] + '/states/itemStates.json')
-    buildFile.write(buildcfg['srcFolder'] + '/states/npcStates.json')
-    buildFile.write(buildcfg['srcFolder'] + '/states/roomStates.json')
-    buildFile.write(buildcfg['srcFolder'] + '/states/playerState.json')
+    buildFile.write('./' + buildcfg['buildFile'] + '/items.json')
+    buildFile.write('./' + buildcfg['buildFile'] + '/npcs.json')
+    buildFile.write('./' + buildcfg['buildFile'] + '/rooms.json')
+    buildFile.write('./' + buildcfg['buildFile'] + '/states/itemStates.json')
+    buildFile.write('./' + buildcfg['buildFile'] + '/states/npcStates.json')
+    buildFile.write('./' + buildcfg['buildFile'] + '/states/roomStates.json')
+    buildFile.write('./' + buildcfg['buildFile'] + '/states/playerState.json')
 print "Done."
