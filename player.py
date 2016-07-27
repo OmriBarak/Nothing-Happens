@@ -28,8 +28,12 @@ def list_inventory():
 
 def do(command):
     ## Attempts to make the player character do the player's command
-    # Determine player intent
-    if command[0] in moveIntents: intent = "MOVE"
+    # Simple commands
+    if command[0].lower() == u"save": infoutil.save()
+    elif command[0].lower() in [u"quit", u"exit"]: infoutil.quit()
+
+    # Not-simple commands
+    elif command[0] in moveIntents: intent = "MOVE"
     elif command[0] in lookIntents: intent = "LOOK"
     else: intent = "INTERACT"
 

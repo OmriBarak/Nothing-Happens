@@ -1,6 +1,7 @@
 # Game Variable & State Information Utility
 # Stores and updates game vars and states for other modules to access and use
 import os
+import sys
 import zipfile
 import json
 
@@ -49,8 +50,9 @@ def name(objectType, thingID):
     # Returns as string the name of whatever the thingID specified in args
     return fetch('info', objectType, thingID)['name']
 
-def save():
-    ioutil.save_game(playerState, roomStates, itemStates, npcStates)
+def save(): ioutil.save_game(playerState, roomStates, itemStates, npcStates)
+
+def quit(): sys.exit()
 
 print "Loading game data..."
 # Load game data
