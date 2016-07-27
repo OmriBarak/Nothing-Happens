@@ -10,7 +10,7 @@ directionCommands = [u"n", u"north", u"s", u"south", u"e", u"east", u"w", u"west
 viewCommands = [u"look", u"l"]
 invCommands = [u"inventory", u"inv", u"i"]
 
-invManagementCommands = [u"take", u"get", u"drop", u"put", u"place"]
+invManagementCommands = [u"take", u"get", u"pick", u"drop", u"put", u"place"]
 usageCommands = [u"use"]
 
 moveIntents = movementCommands + directionCommands
@@ -103,13 +103,32 @@ def look(command):
         return u"You can\'t see that here!"
 
 def interact(command):
+    # todo: find a good way to integrate this with item commands
+    interactionTarget = ""
+    for word in command:
+        if word not in invManagementCommands + usageCommands + [u"up", u"down"]:
+            interactionTarget = word
+            break
+
     # Take/get [object]
     if command[0] in [u"take", u"get"]:
-        pass
+        for itemi in room.list_inventory(infoutil.fetch('state', 'player', '0')['location']):
+            if interactionTarget.lower() == itemi[1]: 
+                infoutil.remove_item('room', fetch('state', 'player', '0')['location'], itemi[0])       # Remove the item from the room's inventory
+                infoutil.add_item('player', '0', item[0])       # And add the item to the player's inventory
+                return u"You take the %s." % interactionTarget
+        # If the item isn't found
+        return u"There is no %s within arm\'s reach."
 
     # Drop [object], put (down) [object], etc.
     elif command[0] in [u"drop", u"put", u"place"]:
-        pass
+        for itemi in room.list_inventory(infoutil.fetch('state', 'player', '0')['location']):
+            if interactionTarget.lower() == itemi[1]: 
+                infoutil.remove_item('player', '0', item[0])	    # Remove the item from the player's inventory
+                infoutil.add_item('room', fetch('state', 'player', '0')['location'], itemi[0])	    # And add the item to the room's inventory
+                return u"You take the %s." % interactionTarget
+        # If the item isn't found
+        return u"There is no %s within arm\'s reach."
 
     # todo: use [x] on [y]
     # todo: item commands
