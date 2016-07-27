@@ -24,7 +24,7 @@ directionMap = {
 }
 
 def list_inventory():
-    return infoutil.player_state()['inventory']
+    return infoutil.fetch('state', 'player', '0')['inventory']
 
 def do(command):
     ## Attempts to make the player character do the player's command
@@ -53,7 +53,7 @@ def move(command):
 
     # Check to see if there is a room in that direction from the player's room
     destination = ""
-    for connection in room.list_connections(infoutil.player_state()['location']):
+    for connection in room.list_connections(infoutil.fetch('state', 'player', '0')['location']):
         if directionShortcode in connection[2]:
             destination = connection[0]
             direction = connection[3]
@@ -82,12 +82,12 @@ def look(command):
         return u"You have:\n" + '\n'.join(inventoryList)
 
     # Look room
-    if lookTarget == u"room": return room.describe(infoutil.player_state()['location'])
+    if lookTarget == u"room": return room.describe(infoutil.fetch('state', 'player', '0')['location'])
 
     # Look [object]
     else:
         # check if [object] is an npc
-        for npci in room.list_npcs(infoutil.player_state()['location']):
+        for npci in room.list_npcs(infoutil.fetch('state', 'player', '0')['location']):
             if lookTarget.lower() == npci[1]: return npc.describe(npci[0])
         
         # check if [object] is an item
@@ -96,7 +96,7 @@ def look(command):
         for invItem in list_inventory(): invItems.append((invItem, infoutil.name('item', invItem)))
 
         # Look for the item in the command in a list of items in the room and held items
-        for itemi in room.list_items(infoutil.player_state()['location']) + invItems:
+        for itemi in room.list_items(infoutil.fetch('state', 'player', '0')['location']) + invItems:
             if lookTarget.lower() == itemi[1] or lookTarget in item.synonyms(itemi[0]): return item.describe(itemi[0])
         
         # if the item/npc isn't found

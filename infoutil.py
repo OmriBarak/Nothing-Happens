@@ -10,12 +10,9 @@ from config import filecfg
 def fetch(dataType, objectType, thingID):
     ## Returns the state of or info for (as specified in args) a thing (room, item, or NPC) of type and ID specified in args
     thingList = []
-    if dataType == 'state':
-        # Find states of things
-        thingList = get_state_for_objtype(objectType)
-
+    if dataType == 'state': thingList = get_state_for_objtype(objectType)
     elif dataType == 'info':
-        # Find game info about things
+        # todo: get_info_for_objtype()??
         if objectType == 'item': thingList = gameItems
         elif objectType == 'npc': thingList = gameNpcs
         elif objectType == 'room': thingList = gameRooms
