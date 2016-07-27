@@ -113,22 +113,22 @@ def interact(command):
     # Take/get [object]
     if command[0] in [u"take", u"get"]:
         for itemi in room.list_inventory(infoutil.fetch('state', 'player', '0')['location']):
-            if interactionTarget.lower() == itemi[1]: 
-                infoutil.remove_item('room', fetch('state', 'player', '0')['location'], itemi[0])       # Remove the item from the room's inventory
-                infoutil.add_item('player', '0', item[0])       # And add the item to the player's inventory
+            if interactionTarget.lower() == itemi[1] or interactionTarget in item.synonyms(itemi[0]): 
+                infoutil.remove_item('room', infoutil.fetch('state', 'player', '0')['location'], itemi[0])       # Remove the item from the room's inventory
+                infoutil.add_item('player', '0', itemi[0])       # And add the item to the player's inventory
                 return u"You take the %s." % interactionTarget
         # If the item isn't found
         return u"There is no %s within arm\'s reach."
 
     # Drop [object], put (down) [object], etc.
     elif command[0] in [u"drop", u"put", u"place"]:
-        for itemi in room.list_inventory(infoutil.fetch('state', 'player', '0')['location']):
-            if interactionTarget.lower() == itemi[1]: 
-                infoutil.remove_item('player', '0', item[0])	    # Remove the item from the player's inventory
-                infoutil.add_item('room', fetch('state', 'player', '0')['location'], itemi[0])	    # And add the item to the room's inventory
-                return u"You take the %s." % interactionTarget
+        for itemi in list_inventory():
+            if interactionTarget.lower() == infoutil.name('item', itemi) or interactionTarget in item.synonyms(itemi): 
+                infoutil.remove_item('player', '0', itemi)	    # Remove the item from the player's inventory
+                infoutil.add_item('room', infoutil.fetch('state', 'player', '0')['location'], itemi)	    # And add the item to the room's inventory
+                return u"You drop the %s." % interactionTarget
         # If the item isn't found
-        return u"There is no %s within arm\'s reach."
+        return u"There is no %s within arm\'s reach." % interactionTarget
 
     # todo: use [x] on [y]
     # todo: item commands

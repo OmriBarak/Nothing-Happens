@@ -35,11 +35,15 @@ def get_state_for_objtype(objectType):
 
 def add_item(holderObjectType, holderID, itemID):
     # Adds item with ID itemID to a holder with ID holderID
-    update_state(holderObjectType, holderID, 'inventory', heldItems + fetch('state', holderObjectType, holderID)['inventory'].append(itemID))
+    inventory = fetch('state', holderObjectType, holderID)['inventory']
+    inventory.append(itemID)
+    update_state(holderObjectType, holderID, 'inventory', inventory)
 
 def remove_item(holderObjectType, holderID, itemID):
     # Removes item with ID itemID from its holder with ID holderID
-    update_state(holderObjectType, holderID, 'inventory', fetch('state', holderObjectType, holderID)['inventory'].remove(itemID), holderID)
+    inventory = fetch('state', holderObjectType, holderID)['inventory']
+    inventory.remove(itemID)
+    update_state(holderObjectType, holderID, 'inventory', inventory)
 
 def name(objectType, thingID):
     # Returns as string the name of whatever the thingID specified in args
