@@ -9,15 +9,10 @@ from config import filecfg
 
 def fetch(dataType, objectType, thingID):
     ## Returns the state of or info for (as specified in args) a thing (room, item, or NPC) of type and ID specified in args
-    #  Note that 'player' objectTypes don't require a thingID
     thingList = []
     if dataType == 'state':
         # Find states of things
-        if objectType == 'item': thingList = itemStates
-        elif objectType == 'npc': thingList = npcStates
-        elif objectType == 'room': thingList = roomStates
-
-        elif objectType == 'player': return playerState
+        thingList = get_state_for_objtype(objectType)
 
     elif dataType == 'info':
         # Find game info about things
@@ -31,11 +26,15 @@ def fetch(dataType, objectType, thingID):
 
 def update_state(objectType, state, status, thingID):
     # Updates the state of the given object
-    # todo: Make this work without extra code for 'player' objectType
-    if objectType == 'player': playerState[state] = status
-    elif objectType == 'room': 
-        for count, room in enumerate(roomStates):
-            if room["ID"] == thingID: room[state] = status
+    thingList = get_state_for_objtype(objectType)
+    for count, thing in enumerate(thingList):
+        if thing["ID"] == thingID: thing[state] = status
+
+def get_state_for_objtype(objectType):
+    if objectType == 'item': return itemStates
+    elif objectType == 'npc': return npcStates
+    elif objectType == 'room': return roomStates
+    elif objectType == 'player': return playerState
 
 def add_item(holderObjectType, holderID, itemID):
     # Adds item with ID itemID to a holder with ID holderID
