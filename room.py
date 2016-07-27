@@ -6,12 +6,12 @@ directionLongcodes = {
     "u": "up", "d": "down", "i": "in", "o": "out"
 }
 
-def list_items(roomID):
+def list_inventory(roomID):
     # Returns (itemID, item name) for item in room
-    items = []
-    for itemID in infoutil.fetch('state', 'room', roomID)['items']:
-        items.append((itemID, infoutil.name('item', itemID)))
-    return items
+    inventory = []
+    for itemID in infoutil.fetch('state', 'room', roomID)['inventory']:
+        inventory.append((itemID, infoutil.name('item', itemID)))
+    return inventory
 
 def list_npcs(roomID):
     # Returns (npcID, npc name) for npc in room
@@ -34,18 +34,18 @@ def describe(roomID):
     name = infoutil.name('room', roomID).upper()
     description = infoutil.fetch('info', 'room', roomID)['description']
 
-    # Get items, NPCs, and connections for the room
-    items = list_items(roomID)
+    # Get inventory, NPCs, and connections for the room
+    inventory = list_inventory(roomID)
     npcs = list_npcs(roomID)
     connections = list_connections(roomID)
 
     # Format the room information as a string
-    itemSentence = u""
-    for count, item in enumerate(items):
-        itemSentence += item[1]
-        if len(items) - 2 == count: itemSentence += u", and "
-        elif len(items) - 1 != count: itemSentence += u", "
-        elif len(items) - 1 == count: itemSentence += u" are here."
+    inventoryentence = u""
+    for count, item in enumerate(inventory):
+        inventoryentence += item[1]
+        if len(inventory) - 2 == count: inventoryentence += u", and "
+        elif len(inventory) - 1 != count: inventoryentence += u", "
+        elif len(inventory) - 1 == count: inventoryentence += u" are here."
 
     npcSentence = u""
     for count, npc in enumerate(npcs):
@@ -70,7 +70,7 @@ def describe(roomID):
         elif len(connections) - 1 != count: directionList += u", "
         elif len(connections) - 1 == count: directionList += u"."
 
-    passageList = [description, itemSentence, npcSentence, connectionSentence]
+    passageList = [description, inventoryentence, npcSentence, connectionSentence]
     passageStr = u""
     for sentence in passageList:
         if sentence != u"": passageStr += sentence[0].upper() + sentence[1:] + u" "
