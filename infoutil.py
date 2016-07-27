@@ -7,7 +7,7 @@ import json
 import ioutil
 from config import filecfg
 
-def fetch(dataType, objectType, thingID=""):
+def fetch(dataType, objectType, thingID):
     ## Returns the state of or info for (as specified in args) a thing (room, item, or NPC) of type and ID specified in args
     #  Note that 'player' objectTypes don't require a thingID
     thingList = []
@@ -29,7 +29,7 @@ def fetch(dataType, objectType, thingID=""):
         if thing["ID"] == thingID:
             return thing
 
-def update_state(objectType, state, status, thingID=""):
+def update_state(objectType, state, status, thingID):
     # Updates the state of the given object
     # todo: Make this work without extra code for 'player' objectType
     if objectType == 'player': playerState[state] = status
@@ -37,14 +37,13 @@ def update_state(objectType, state, status, thingID=""):
         for count, room in enumerate(roomStates):
             if room["ID"] == thingID: room[state] = status
 
-def add_item():
-    # todo: write add_item()
-    pass
+def add_item(holderObjectType, holderID, itemID):
+    # Adds item with ID itemID to a holder with ID holderID
+    update_state(holderObjectType, 'inventory', heldItems + fetch('state', holderObjectType, holderID)['inventory'].append(itemID))
 
-def remove_item(holderObjectType, itemID, holderID=""):
+def remove_item(holderObjectType, holderID, itemID):
     # Removes item with ID itemID from its holder with ID holderID
-    heldItems = fetch('state', holderObjectType, holderID)['inventory']
-    update_state(holderObjectType, 'inventory', roomItems.remove(itemID), holderID)
+    update_state(holderObjectType, 'inventory', fetch('state', holderObjectType, holderID)['inventory'].remove(itemID), holderID)
 
 def name(objectType, thingID):
     # Returns as string the name of whatever the thingID specified in args
