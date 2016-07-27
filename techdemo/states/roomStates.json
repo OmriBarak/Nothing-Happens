@@ -1,16 +1,16 @@
 [
     {
         "ID": "000",
-        "items": [
+        "inventory": [
             "001", "002", "003", "004"
         ]
     },
     {
         "ID": "001",
-        "items": []
+        "inventory": []
     },
     {
         "ID": "002",
-        "items": []
+        "inventory": []
     }
 ]
