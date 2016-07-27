@@ -21,11 +21,11 @@ def fetch(dataType, objectType, thingID):
         if thing["ID"] == thingID:
             return thing
 
-def update_state(objectType, state, status, thingID):
+def update_state(objectType, objectID, state, status):
     # Updates the state of the given object
     thingList = get_state_for_objtype(objectType)
     for count, thing in enumerate(thingList):
-        if thing["ID"] == thingID: thing[state] = status
+        if thing["ID"] == objectID: thing[state] = status
 
 def get_state_for_objtype(objectType):
     if objectType == 'item': return itemStates
@@ -35,11 +35,11 @@ def get_state_for_objtype(objectType):
 
 def add_item(holderObjectType, holderID, itemID):
     # Adds item with ID itemID to a holder with ID holderID
-    update_state(holderObjectType, 'inventory', heldItems + fetch('state', holderObjectType, holderID)['inventory'].append(itemID))
+    update_state(holderObjectType, holderID, 'inventory', heldItems + fetch('state', holderObjectType, holderID)['inventory'].append(itemID))
 
 def remove_item(holderObjectType, holderID, itemID):
     # Removes item with ID itemID from its holder with ID holderID
-    update_state(holderObjectType, 'inventory', fetch('state', holderObjectType, holderID)['inventory'].remove(itemID), holderID)
+    update_state(holderObjectType, holderID, 'inventory', fetch('state', holderObjectType, holderID)['inventory'].remove(itemID), holderID)
 
 def name(objectType, thingID):
     # Returns as string the name of whatever the thingID specified in args

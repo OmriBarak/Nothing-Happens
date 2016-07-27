@@ -63,7 +63,7 @@ def move(command):
         return u"There is no room in that direction."       # Fail state
     else:
         # Move the player
-        infoutil.update_state('player', 'location', destination)
+        infoutil.update_state('player', '0', 'location', destination)
         return u"You move " + direction + "..." + room.describe(destination)
 
 def look(command):
@@ -96,7 +96,7 @@ def look(command):
         for invItem in list_inventory(): invItems.append((invItem, infoutil.name('item', invItem)))
 
         # Look for the item in the command in a list of items in the room and held items
-        for itemi in room.list_items(infoutil.fetch('state', 'player', '0')['location']) + invItems:
+        for itemi in room.list_inventory(infoutil.fetch('state', 'player', '0')['location']) + invItems:
             if lookTarget.lower() == itemi[1] or lookTarget in item.synonyms(itemi[0]): return item.describe(itemi[0])
         
         # if the item/npc isn't found
