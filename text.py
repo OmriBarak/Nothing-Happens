@@ -3,7 +3,7 @@ import curses
 '''
 Each text object is a tuple, stored as ("text", UID, "POS").
 
-"UID" is a three-digit number that allows you to access the text to change its properties and position other text relative to it.
+"UID" is a three-digit number that allows you to access the text to change its properties and position other text relative to it:
     - 000 is a reserved (and unused) UID.
     - UIDs with low numerical values are generally reserved for static text
     - If the text is part of the player's input and feedback, then * is placed at the front of it.
@@ -17,10 +17,10 @@ Each text object is a tuple, stored as ("text", UID, "POS").
         where UID is the string being positioned from's UID.
 
 Text formats are stored in strings with special characters:
-!text!  indicates bold text,
-/text/  indicates italic text,
-_text_  indicates underlined text,
-#XXXXXX indicates a hex color for all following text (the default is #000000)
+    !text!  indicates bold text,
+    /text/  indicates italic text,
+    _text_  indicates underlined text,
+    #XXXXXX indicates a hex color for all following text (the default is #000000)
 
 OBVIOUS DO-NOTS:
     - Do not position text relative to itself
@@ -62,5 +62,9 @@ def change_string_text(uid):
     pass
 
 #Gets all the UIDs of the string objects. Used for functions in the same vein as clear_display(maxUID)
-def get_all_uids:
+def get_all_uids():
+    pass
+
+#Get user input for commands, etc.
+def user_input():
     pass
