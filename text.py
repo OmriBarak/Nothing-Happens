@@ -1,7 +1,10 @@
 import curses
+import colorama
+from colorama import Fore, Back
+colorama.init() #If this is a bug, then do "from colorama import init" as well
 
 '''
-Each text object is a tuple, stored as ("text", UID, "POS").
+Each text object is a triple, stored as ("text", UID, "POS").
 
 "UID" is a three-digit number that allows you to access the text to change its properties and position other text relative to it:
     - 000 is a reserved (and unused) UID.
@@ -16,11 +19,8 @@ Each text object is a tuple, stored as ("text", UID, "POS").
     You can indicate that this is positioned relative to another string by placing ^UID at the front of the string,
         where UID is the string being positioned from's UID.
 
-Text formats are stored in strings with special characters:
-    !text!  indicates bold text,
-    /text/  indicates italic text,
-    _text_  indicates underlined text,
-    #XXXXXX indicates a hex color for all following text (the default is #000000)
+Bold text is written inside !exclamation marks!.
+Colored text is written using colorama.
 
 OBVIOUS DO-NOTS:
     - Do not position text relative to itself
