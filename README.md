@@ -1,1 +1,1 @@
-(todo)
+This is the Nothing-Happens text-based adventure. This was hosted on my GitHub for a small amount of time before I realized I had no time and had made barely any contributions to the project. As such, I have given full control, ownership, and the branch to [Ellie Cochran](github.com/sintelligentdesign)
